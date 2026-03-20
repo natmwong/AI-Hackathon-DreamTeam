@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flow Tasks Widget</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/scripts/task.js">
+
+  <link rel="stylesheet" href="/CSS/main.css">
+</head>
+<body>
+
+<!-- ─── Widget ─── -->
+  <div class="widget-header">
+    <span class="widget-title">Tasks</span>
+    <button class="btn-add" id="btnOpenModal" title="Write a task" aria-label="Write a task">
+      <!-- pencil icon -->
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10.5 2L13 4.5L5.5 12H3V9.5L10.5 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="8.2" y1="4.3" x2="10.7" y2="6.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <ul class="task-list" id="taskList">
+    <li class="task-empty" id="emptyState">No tasks yet — pick up the pencil.</li>
+  </ul>
+</div>
+
+<!-- ─── Modal ─── -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">New Task</span>
+      <button class="btn-modal-close" id="btnCloseModal" aria-label="Close">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="field-group">
+        <label class="field-label" for="inputTitle">Task Title *</label>
+        <input class="field-input" id="inputTitle" type="text" placeholder="What needs to be done?" maxlength="80" autocomplete="off"/>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="inputDesc">Description</label>
+        <textarea class="field-textarea" id="inputDesc" placeholder="Optional notes or context…"></textarea>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <div class="field-group">
+        <span class="field-label">Category</span>
+        <div class="category-grid" id="categoryGrid">
+          <button class="cat-btn" data-cat="Coding Session"     type="button"><span class="cat-icon">💻</span>Coding Session</button>
+          <button class="cat-btn" data-cat="Bug Scrub"          type="button"><span class="cat-icon">🐛</span>Bug Scrub</button>
+          <button class="cat-btn" data-cat="Code Review"        type="button"><span class="cat-icon">🔍</span>Code Review</button>
+          <button class="cat-btn" data-cat="Meeting"            type="button"><span class="cat-icon">📅</span>Meeting</button>
+          <button class="cat-btn" data-cat="Sprint Planning"    type="button"><span class="cat-icon">🗂️</span>Sprint Planning</button>
+          <button class="cat-btn" data-cat="Documentation"      type="button"><span class="cat-icon">📝</span>Documentation</button>
+          <button class="cat-btn" data-cat="Deployment"         type="button"><span class="cat-icon">🚀</span>Deployment</button>
+          <button class="cat-btn" data-cat="Research / Spike"   type="button"><span class="cat-icon">🔬</span>Research / Spike</button>
+          <button class="cat-btn" data-cat="On-Call / Incident" type="button"><span class="cat-icon">🚨</span>On-Call</button>
+        </div>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <div class="field-group">
+        <label class="field-label" for="inputPriority">Priority</label>
+        <select class="field-select" id="inputPriority">
+          <option value="none">None</option>
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <div class="modal-row">
+        <div class="field-group">
+          <label class="field-label" for="inputDate">Date</label>
+          <input class="field-input" id="inputDate" type="date"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="inputStartTime">Start Time</label>
+          <input class="field-input" id="inputStartTime" type="time"/>
+        </div>
+      </div>
+
+      <div class="modal-row">
+        <div class="field-group">
+          <label class="field-label" for="inputDurationH">Duration — Hrs</label>
+          <select class="field-select" id="inputDurationH">
+            <option value="0">0 hr</option>
+            <option value="1">1 hr</option>
+            <option value="2">2 hr</option>
+            <option value="3">3 hr</option>
+            <option value="4">4 hr</option>
+            <option value="5">5 hr</option>
+            <option value="6">6 hr</option>
+            <option value="7">7 hr</option>
+            <option value="8">8 hr</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="inputDurationM">Duration — Min</label>
+          <select class="field-select" id="inputDurationM">
+            <option value="0">0 min</option>
+            <option value="15">15 min</option>
+            <option value="30" selected>30 min</option>
+            <option value="45">45 min</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" id="btnCancelModal">Cancel</button>
+      <button class="btn-submit" id="btnAddTask">Add Task</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
