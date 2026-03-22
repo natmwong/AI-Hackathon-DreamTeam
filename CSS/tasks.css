@@ -1,0 +1,90 @@
+body {
+  background: #eef1f5;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Card container */
+.task-card {
+  width: 420px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 24px;
+  background: #f4f6fa;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Header */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.task-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 200;
+  color: #333;
+  opacity: 1;
+}
+
+.add-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Task list */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each task */
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #dcdfe5;
+  color: #333;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
+
+/* Checkbox */
+.task input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+/* Completed task */
+.task.completed span {
+  color: #9aa0a6;
+  text-decoration: line-through;
+}
+
+/* Muted (faded tasks like in your UI) */
+.task.muted span {
+  color: #b7bcc5;
+}
+
+/* Text */
+.task span {
+  font-size: 15px;
+  line-height: 1.4;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+  color: #333;
+}
