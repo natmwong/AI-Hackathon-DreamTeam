@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    height: 900px;
+    height: calc(100vh - 150px);
     min-width: 100px;
 }
 
@@ -10,4 +10,10 @@
     margin: 20px;
     cursor: pointer;
     align-self: center;
+}
+
+.setting-app {
+    align-self: center;
+    margin-bottom: 150px;
+    margin-top: auto;
 }

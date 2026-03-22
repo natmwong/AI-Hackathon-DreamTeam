@@ -1,5 +1,36 @@
 #tracker {
     height: 286px;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation {
+    width: 500px;
+    position: absolute;
+    top: -10px;
+    left: -30px;
+    z-index: 1000;
+}
+
+.progress-bar {
+    position: relative;
+    width: 359px;
+    height:25px;
+    box-shadow: inset 2px 3px 6px #CDCFD4;
+    border-radius: 15px;
+    align-self: center;
+    margin-bottom: 10px;
+    margin-top: auto;
+    z-index: 500;
+}
+
+.progression-bar {
+    width: 250px;
+    height: 25px;
+    background: linear-gradient(90deg, #0A87E1 0%, #A8D9FC 100%);
+    border-radius: 15px;
+    position: absolute;
+    z-index: 600;
 }
 
 
