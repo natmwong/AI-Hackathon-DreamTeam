@@ -1,3 +1,50 @@
+body {
+    font-family: 'Inter';
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 1210px;
+    background-color: rgb(101, 72, 128);
+    margin-bottom: 10px;
+}
+
+.header-left {
+    margin-top: 30px;
+    margin-left: 100px;
+}
+.header-title {
+    font-size: 35px;
+    font-weight: 500;
+}
+.header-subtitle {
+    opacity: 50%;
+    font-size: 20px;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 900px;
+    min-width: 100px;
+    background-color: blueviolet;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    height: 900px;   
+    width: 1100px; 
+    margin-left: 10px;
+}
+
 .box {
     background-color: blueviolet;
     display: flex;
@@ -14,20 +61,23 @@
 
 
 #column1{
+    display: flex;
+    flex-direction: column;
     width: 550px;
 }
 
 #column2 {
+    display: flex;
+    flex-direction: column;
     width: 550px;
     margin-left: 10px;
 }
 
-.dashboard {
+
+.nav-app {
+    background-color: yellow;
     display: flex;
-    flex-direction: row;
-    height: 900px;   
-    width: 1100px; 
-    margin-left: 120px;
+    justify-content: center;
 }
 
 #clock {
@@ -46,11 +96,6 @@
     height: 440px;
 }
 
-.sidebar {
-    height: 900px;
-    width: 100px;
-    background-color: blueviolet;
-    float: left;
-}
+
 
 
