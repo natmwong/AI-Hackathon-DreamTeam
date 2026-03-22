@@ -1,0 +1,20 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background: #e9edf3;
+    height: 900px;
+    min-width: 100px;
+    justify-content: center; 
+    justify-self: center; 
+    justify-items: center; 
+}
+
+.nav-app {
+    height: 50px;
+    border-radius: 10px;
+    background: #e9edf3;
+    box-shadow:
+        4px 4px 8px rgba(0,0,0,0.1),
+        -4px -4px 8px rgba(255,255,255,0.9);
+    margin: 10px;
+}

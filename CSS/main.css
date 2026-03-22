@@ -29,14 +29,6 @@ body {
     flex-direction: row;
 }
 
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 900px;
-    min-width: 100px;
-    background-color: blueviolet;
-}
-
 .dashboard {
     display: flex;
     flex-direction: row;
@@ -46,9 +38,18 @@ body {
 }
 
 .box {
-    background-color: blueviolet;
-    display: flex;
-    justify-content: center;
+    border-radius: 20px;
+    padding: 15px;
+
+    background: linear-gradient(
+        320deg,
+        rgb(255, 255, 255),
+        rgb(241, 241, 241)
+    );
+
+    box-shadow: 
+        0px 4px 4px rgba(0, 0, 0, 0.25),
+        inset 1px 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .top {
@@ -58,7 +59,6 @@ body {
 .bottom {
     margin-bottom: 10px;
 }
-
 
 #column1{
     display: flex;
@@ -73,27 +73,16 @@ body {
     margin-left: 10px;
 }
 
-
-.nav-app {
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
-}
-
 #clock {
     height: 300px;
 }
 
-#calendar {
-    height: 450px;
+#main-display {
+    height: 250px;
 }
 
 #task {
     height: 590px;
-}
-
-#remind {
-    height: 440px;
 }
 
 
