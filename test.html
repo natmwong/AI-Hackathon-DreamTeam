@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Dash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="CSS/test.css" />
+</head>
+<body>
+  <div class="app-shell">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="nav-indicator"></div>
+
+      <div class="sidebar-icons top">
+        <button class="icon-btn active"><i class="fa-regular fa-house"></i></button>
+        <button class="icon-btn"><i class="fa-regular fa-calendar"></i></button>
+        <button class="icon-btn"><i class="fa-regular fa-award"></i></button>
+      </div>
+
+      <div class="sidebar-icons bottom">
+        <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="dashboard">
+      <header class="header">
+        <h1>Flow Dash</h1>
+        <p>Hello, Brian</p>
+      </header>
+
+      <section class="content-grid">
+        <!-- Mode card -->
+        <div class="card mode-card">
+          <p class="mode-label">Mode :</p>
+          <h2>Break</h2>
+        </div>
+
+        <!-- Timer card -->
+        <div class="card timer-card">
+          <div class="progress-ring">
+            <div class="progress-ring-inner">
+              <span>0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stretch / status card -->
+        <div class="card posture-card">
+          <div class="person-figure">
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="leg leg-1"></div>
+            <div class="leg leg-2"></div>
+            <div class="arm"></div>
+          </div>
+
+          <div class="status-bar">
+            <div class="status-fill"></div>
+          </div>
+        </div>
+
+        <!-- Tasks -->
+        <div class="card tasks-card">
+          <div class="card-top">
+            <h3>Tasks</h3>
+            <button class="plus-btn">+</button>
+          </div>
+
+          <div class="task-list">
+            <label class="task-item checked done">
+              <input type="checkbox" checked />
+              <span class="custom-check"></span>
+              <span class="task-text">
+                Check and respond to priority emails from clients and internal team members
+              </span>
+            </label>
+
+            <label class="task-item">
+              <input type="checkbox" />
+              <span class="custom-check"></span>
+              <span class="task-text">
+                Update sales spreadsheet with latest numbers and double check for accuracy
+              </span>
+            </label>
+
+            <label class="task-item faded">
+              <input type="checkbox" />
+              <span class="custom-check"></span>
+              <span class="task-text">
+                Review and clean up data entries to remove duplicates and correct errors
+              </span>
+            </label>
+
+            <label class="task-item faded">
+              <input type="checkbox" />
+              <span class="custom-check"></span>
+              <span class="task-text">
+                Prepare slides for team meeting including key metrics, updates, and action items
+              </span>
+            </label>
+
+            <label class="task-item faded">
+              <input type="checkbox" />
+              <span class="custom-check"></span>
+              <span class="task-text">
+                Organize files in shared drive by category and archive outdated docs
+              </span>
+            </label>
+
+            <label class="task-item faded">
+              <input type="checkbox" />
+              <span class="custom-check"></span>
+              <span class="task-text">
+                Follow up with clients on pending requests and confirm next steps or deadlines
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Events -->
+        <div class="card events-card">
+          <div class="events-title">Events</div>
+
+          <div class="events-layout">
+            <button class="mini-add">+</button>
+
+            <div class="event-pill urgent">
+              <p class="small-label">Upcoming • AI</p>
+              <h4>Meeting with Mike for Project Updates</h4>
+              <div class="event-footer urgent-text">
+                <span>Right Now!</span>
+                <i class="fa-regular fa-bell"></i>
+              </div>
+            </div>
+
+            <div class="event-pill">
+              <p class="small-label">Upcoming</p>
+              <h4>Call with Design Team</h4>
+              <div class="event-footer">
+                <span>3:00 pm</span>
+                <i class="fa-regular fa-bell"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat input -->
+        <div class="chat-wrap">
+          <div class="chat-input">
+            <span>Ask flow...</span>
+          </div>
+          <button class="chat-send">
+            <i class="fa-regular fa-compass"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
