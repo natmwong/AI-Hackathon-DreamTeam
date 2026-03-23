@@ -12,13 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleAddEvent(event) {
     event.preventDefault();
-    addEvent('Event Title...', '00:00 pm');
+    addEvent('Title...', '00:00 pm');
 }
 
 function addEvent(name, time) {
     const eventCard = document.createElement('div');
     eventCard.className = 'event-card';
     eventCard.innerHTML = `
+        <button class="event-delete-btn">
+            <img src="image/close.svg" alt="Delete">
+        </button>
         <div class="event-card-type">Upcoming</div>
         <div class="event-card-title" contenteditable="true" spellcheck="false"></div>
         <div class="event-card-time" contenteditable="true" spellcheck="false"></div>
@@ -104,5 +107,58 @@ function setupCardListeners() {
             titleField.blur();
             timeField.blur();
         });
+
+        // Delete button functionality
+        const deleteBtn = card.querySelector('.event-delete-btn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+                showConfirmation('Are you sure you want to delete this event?', () => {
+                    card.remove();
+                });
+            });
+        }
     });
+}
+
+function showConfirmation(message, onConfirm) {
+    const modal = document.getElementById('confirmationModal');
+    const messageEl = document.getElementById('confirmationMessage');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    
+    messageEl.textContent = message;
+    modal.classList.add('active');
+    
+    const handleConfirm = () => {
+        cleanup();
+        onConfirm();
+    };
+    
+    const handleCancel = () => {
+        cleanup();
+    };
+    
+    const cleanup = () => {
+        modal.classList.remove('active');
+        confirmBtn.removeEventListener('click', handleConfirm);
+        cancelBtn.removeEventListener('click', handleCancel);
+        document.removeEventListener('keydown', handleEscape);
+    };
+    
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            handleCancel();
+        }
+    };
+    
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+    document.addEventListener('keydown', handleEscape);
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            handleCancel();
+        }
+    }, { once: true });
 }

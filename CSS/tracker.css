@@ -3,17 +3,38 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .animation {
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    width: 500px; 
+    z-index: 700;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
+
+.freak-walk {
+    top: 3%;
+}
+
+.freak-run {
+    top: 2.5%;
+}
+
+.freak-crawl {
+    top: 6%;
+}
+
+.freak-relax {
+    top: -1%;
 }
 
 .progress-bar {
     position: relative;
     width: 359px;
-    height:25px;
+    height: 25px;
     box-shadow: inset 2px 3px 6px #CDCFD4;
     border-radius: 15px;
     align-self: center;

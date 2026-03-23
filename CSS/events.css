@@ -107,6 +107,7 @@
 
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .event-card-title:focus,
@@ -157,10 +158,14 @@
 
 .event-card-time {
     font-size: 14px;
-    width: 75px;
-    padding-left: 5px;
     color: #7a7a7a;
     margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    width: 80px;
+    padding-left: 10px;
 }
 
 .urgent-text {
@@ -175,4 +180,156 @@
 .event-card-time:empty::before {
     content: "00:00 pm";
     color: #ccc;
+}
+
+.event-delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0%;
+    transition: opacity 0.2s ease;
+}
+
+.event-delete-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.event-card:hover .event-delete-btn {
+    opacity: 0.5;
+}
+
+.event-delete-btn:hover {
+    transform: scale(1.15);
+}
+
+.event-delete-btn:active {
+    transform: scale(0.95);
+}
+
+/* Confirmation Modal Styles */
+.confirmation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(2px);
+}
+
+.confirmation-modal.active {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.confirmation-content {
+    background: linear-gradient(-5deg, #ffffff 0%, #ebebeb 100%);
+    border-radius: 30px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    min-width: 350px;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.confirmation-header {
+    margin-bottom: 20px;
+}
+
+.confirmation-header h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+}
+
+.confirmation-body {
+    margin-bottom: 28px;
+}
+
+.confirmation-body p {
+    margin: 0;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.confirmation-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.confirmation-cancel {
+    background: #f0f0f0;
+    color: #666;
+    border: 1px solid #e0e0e0;
+}
+
+.confirmation-cancel:hover {
+    background: #e8e8e8;
+    transform: translateY(-1px);
+}
+
+.confirmation-cancel:active {
+    transform: translateY(0);
+}
+
+.confirmation-delete {
+    background: linear-gradient(135deg, #d13a2f 0%, #a82e25 100%);
+    color: white;
+    border: 1px solid #c73226;
+}
+
+.confirmation-delete:hover {
+    box-shadow: 0 4px 12px rgba(209, 58, 47, 0.3);
+    transform: translateY(-1px);
+}
+
+.confirmation-delete:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(209, 58, 47, 0.3);
 }
