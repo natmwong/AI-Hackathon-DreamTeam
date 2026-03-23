@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
         addEventBtn.addEventListener('click', handleAddEvent);
     }
     
+    // Setup settings modal
+    setupSettingsModal();
+    
     // Add listeners to existing cards
     setupCardListeners();
 });
@@ -161,4 +164,55 @@ function showConfirmation(message, onConfirm) {
             handleCancel();
         }
     }, { once: true });
+}
+
+function setupSettingsModal() {
+    const settingsIcon = document.querySelector('.setting-app');
+    const settingsModal = document.getElementById('settingsModal');
+    const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+    const settingsCancelBtn = document.getElementById('settingsCancelBtn');
+    const settingsSaveBtn = document.querySelector('.settings-save');
+    
+    // Open settings modal
+    if (settingsIcon) {
+        settingsIcon.addEventListener('click', () => {
+            settingsModal.classList.add('active');
+        });
+    }
+    
+    // Close settings modal functions
+    const closeSettingsModal = () => {
+        settingsModal.classList.remove('active');
+    };
+    
+    if (settingsCloseBtn) {
+        settingsCloseBtn.addEventListener('click', closeSettingsModal);
+    }
+    
+    if (settingsCancelBtn) {
+        settingsCancelBtn.addEventListener('click', closeSettingsModal);
+    }
+    
+    // Save settings
+    if (settingsSaveBtn) {
+        settingsSaveBtn.addEventListener('click', () => {
+            // Here you can add logic to save the settings
+            console.log('Settings saved!');
+            closeSettingsModal();
+        });
+    }
+    
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && settingsModal.classList.contains('active')) {
+            closeSettingsModal();
+        }
+    });
+    
+    // Close when clicking outside
+    settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) {
+            closeSettingsModal();
+        }
+    });
 }
