@@ -46,6 +46,20 @@ body {
     background-color: #e0e0e054;
 }
 
+@keyframes Bounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .box {
     position: relative;
     border-radius: 50px;
@@ -57,6 +71,7 @@ body {
     border: 1px solid #ffffff;
 
     box-sizing: border-box;
+    animation: Bounce 0.6s ease-out;
 }
 
 .box-label {
@@ -96,6 +111,7 @@ body {
 
 #main-display {
     height: 250px;
+    animation: Bounce 0.6s ease-out 0.1s both;
 }
 
 #task {
