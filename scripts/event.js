@@ -1,0 +1,108 @@
+// Event listener for add event button
+document.addEventListener('DOMContentLoaded', () => {
+    const addEventBtn = document.querySelector('.events-add-btn');
+    
+    if (addEventBtn) {
+        addEventBtn.addEventListener('click', handleAddEvent);
+    }
+    
+    // Add listeners to existing cards
+    setupCardListeners();
+});
+
+function handleAddEvent(event) {
+    event.preventDefault();
+    addEvent('Event Title...', '00:00 pm');
+}
+
+function addEvent(name, time) {
+    const eventCard = document.createElement('div');
+    eventCard.className = 'event-card';
+    eventCard.innerHTML = `
+        <div class="event-card-type">Upcoming</div>
+        <div class="event-card-title" contenteditable="true" spellcheck="false"></div>
+        <div class="event-card-time" contenteditable="true" spellcheck="false"></div>
+        <button class="event-card-check" style="display: none;">
+            <img src="image/check.svg" alt="Save">
+        </button>
+    `;
+    
+    const eventsCardsSelection = document.querySelector('.events-cards-selection');
+    const firstEventCard = eventsCardsSelection.querySelector('.event-card');
+    if (firstEventCard) {
+        eventsCardsSelection.insertBefore(eventCard, firstEventCard);
+    } else {
+        eventsCardsSelection.appendChild(eventCard);
+    }
+    
+    setupCardListeners();
+    const titleField = eventCard.querySelector('.event-card-title');
+    titleField.focus();
+}
+
+function setupCardListeners() {
+    const cards = document.querySelectorAll('.event-card');
+    
+    cards.forEach(card => {
+        const titleField = card.querySelector('.event-card-title');
+        const timeField = card.querySelector('.event-card-time');
+        const checkBtn = card.querySelector('.event-card-check');
+        
+        // Store original values
+        let originalTitle = titleField.textContent;
+        let originalTime = timeField.textContent;
+        
+        titleField.addEventListener('focus', () => {
+            originalTitle = titleField.textContent;
+            checkBtn.style.display = 'block';
+        });
+        
+        timeField.addEventListener('focus', () => {
+            originalTime = timeField.textContent;
+            checkBtn.style.display = 'block';
+        });
+        
+        titleField.addEventListener('blur', (e) => {
+            // Don't revert if check button was clicked
+            if (e.relatedTarget !== checkBtn) {
+                titleField.textContent = originalTitle;
+            }
+            if (!document.activeElement.classList.contains('event-card-title') &&
+                !document.activeElement.classList.contains('event-card-time') &&
+                document.activeElement !== checkBtn) {
+                checkBtn.style.display = 'none';
+            }
+        });
+        
+        timeField.addEventListener('blur', (e) => {
+            if (e.relatedTarget !== checkBtn) {
+                timeField.textContent = originalTime;
+            }
+            if (!document.activeElement.classList.contains('event-card-title') &&
+                !document.activeElement.classList.contains('event-card-time') &&
+                document.activeElement !== checkBtn) {
+                checkBtn.style.display = 'none';
+            }
+        });
+
+        const MAX_TITLE_LENGTH = 50;
+
+        titleField.addEventListener('input', (e) => {
+            if (titleField.textContent.length > MAX_TITLE_LENGTH) {
+                titleField.textContent = titleField.textContent.substring(0, MAX_TITLE_LENGTH);
+                const range = document.createRange();
+                const sel = window.getSelection();
+                range.selectNodeContents(titleField);
+                range.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        });
+        
+        checkBtn.addEventListener('click', () => {
+            checkBtn.style.display = 'none';
+            titleField.blur();
+            timeField.blur();
+        });
+    });
+}
