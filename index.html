@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="CSS/sidebar.css">
         <link rel="stylesheet" href="CSS/tracker.css">
         <link rel="stylesheet" href="CSS/task.css">
+        <link rel="stylesheet" href="CSS/main-display.css">
     </head>
     <body>
     <header class="header">
@@ -39,7 +40,28 @@
 
         <main class="dashboard">
             <div id="column1">
-                <div class="box top" id="main-display">main-display</div>
+                <div class="top" id="main-display">
+                    <div class="main-display-box" id="mode">
+                        <div class="mode-label">Mode:</div>
+                        <div class="current-mode">Break</div>
+                    </div>
+                    <div class="main-display-box" id="timer">
+                        <div class="timer-display">
+                            <div class="timer-circle-outer"></div>
+                            <div class="timer-circle-inner"></div>
+                            <div class="timer-text">0:00</div>
+                        </div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" style="transform: rotate(180deg);">
+                                <img src="image/play.svg" alt="Play">
+                            </button>
+                            <button class="timer-btn">
+                                <img src="image/stop.svg" alt="Stop">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="box bottom" id="task">
                     <div class="box-label">Task</div>
                 </div>
