@@ -20,7 +20,7 @@ function handleAddEvent(event) {
 
 function addEvent(name, time) {
     const eventCard = document.createElement('div');
-    eventCard.className = 'event-card';
+    eventCard.className = 'event-card new-event';
     eventCard.innerHTML = `
         <button class="event-delete-btn">
             <img src="image/close.svg" alt="Delete">
