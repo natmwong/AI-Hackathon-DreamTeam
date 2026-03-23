@@ -63,6 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Render tasks
 	function renderTasks() {
 		taskList.innerHTML = '';
+		if (tasks.length === 0) {
+			const emptyMsg = document.createElement('li');
+			emptyMsg.className = 'task-list-empty';
+			emptyMsg.style.textAlign = 'center';
+			emptyMsg.style.color = '#b7bcc5';
+			emptyMsg.style.fontSize = '16px';
+			emptyMsg.style.padding = '32px 0 24px 0';
+			emptyMsg.textContent = 'No tasks yet — Ready to get started?';
+			taskList.appendChild(emptyMsg);
+			return;
+		}
 		// Find the index of the first incomplete (not completed) task
 		const firstIncompleteIdx = tasks.findIndex(t => !t.completed);
 		tasks.forEach((task, idx) => {
@@ -119,4 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			return chars[tag] || tag;
 		});
 	}
+    
+	renderTasks();
 });

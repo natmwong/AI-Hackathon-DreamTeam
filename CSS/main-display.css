@@ -1,3 +1,16 @@
+.timer-loop-count {
+    position: absolute;
+    top: 12px;
+    left: 22px;
+    font-size: 16px;
+    font-weight: 200;
+    color: #000000;
+    z-index: 20;
+    pointer-events: none;
+}
+.timer-btn img {
+    filter: brightness(0) saturate(100%) opacity(0.5);
+}
 #main-display {
     display: flex;
     flex-direction: row;
@@ -48,7 +61,7 @@
 #timer {
     margin-left: 25px;
     width: 353px;
-    height: 286px;
+    height: 310px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,25 +78,14 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-}
-
-.timer-circle-outer {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border: 1px solid #E0E0E0;
-    border-radius: 50%;
-}
-
-.timer-circle-inner {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    border: 1px solid #E0E0E0;
-    border-radius: 50%;
+    margin-top: 22px;
 }
 
 .timer-text {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
     font-size: 48px;
     font-weight: 200;
     color: #000;
@@ -101,14 +103,14 @@
 }
 
 .timer-btn {
-    width: 40px;
+    width: 86px;
     height: 40px;
     box-shadow: 
         0px 4px 4px rgba(0, 0, 0, 0.25);
 
     background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
     border: 1px solid #ffffff;
-    border-radius: 50px;
+    border-radius: 20px;
 
     box-sizing: border-box;
     cursor: pointer;

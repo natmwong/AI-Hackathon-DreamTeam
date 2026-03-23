@@ -1,3 +1,16 @@
+/* Empty state for task list */
+.task-list-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  text-align: center;
+  color: #b7bcc5;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  pointer-events: none;
+}
 .task-list::-webkit-scrollbar {
   width: 8px;
   background: #f4f6fa;

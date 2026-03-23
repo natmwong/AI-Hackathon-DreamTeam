@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="CSS/task.css">
         <link rel="stylesheet" href="CSS/task-modal.css">
         <script src="scripts/task.js"></script>
+        <script src="scripts/timer.js"></script>
         <link rel="stylesheet" href="CSS/main-display.css">
     </head>
     <body>
@@ -47,18 +48,18 @@
                         <div class="current-mode">Break</div>
                     </div>
                     <div class="main-display-box" id="timer">
+                        <div class="timer-loop-count" id="timer-loop-count">#1</div>
                         <div class="timer-display">
-                            <div class="timer-circle-outer"></div>
-                            <div class="timer-circle-inner"></div>
-                            <div class="timer-text">0:00</div>
+                            <canvas id="timer-canvas" width="220" height="220" style="position:absolute;left:0;top:0;z-index:2;"></canvas>
+                            <div class="timer-text" id="timer-text">0:00</div>
                         </div>
-                        <div class="timer-controls">
-                            <button class="timer-btn" style="transform: rotate(180deg);">
-                                <img src="image/play.svg" alt="Play">
-                            </button>
-                            <button class="timer-btn">
-                                <img src="image/stop.svg" alt="Stop">
-                            </button>
+                            <div class="timer-controls">
+                                <button class="timer-btn" id="timer-playpause">
+                                    <img id="timer-playpause-icon" src="image/play.svg" alt="Play">
+                                </button>
+                                <button class="timer-btn" id="timer-restart">
+                                    <img id="timer-restart-icon" src="image/stop.svg" alt="Stop">
+                                </button>
                         </div>
                     </div>
                 </div>
