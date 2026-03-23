@@ -112,10 +112,53 @@ function setupCardListeners() {
         const deleteBtn = card.querySelector('.event-delete-btn');
         if (deleteBtn) {
             deleteBtn.addEventListener('click', () => {
-                if (confirm('Are you sure you want to delete this event?')) {
+                showConfirmation('Are you sure you want to delete this event?', () => {
                     card.remove();
-                }
+                });
             });
         }
     });
+}
+
+function showConfirmation(message, onConfirm) {
+    const modal = document.getElementById('confirmationModal');
+    const messageEl = document.getElementById('confirmationMessage');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    
+    messageEl.textContent = message;
+    modal.classList.add('active');
+    
+    const handleConfirm = () => {
+        cleanup();
+        onConfirm();
+    };
+    
+    const handleCancel = () => {
+        cleanup();
+    };
+    
+    const cleanup = () => {
+        modal.classList.remove('active');
+        confirmBtn.removeEventListener('click', handleConfirm);
+        cancelBtn.removeEventListener('click', handleCancel);
+        document.removeEventListener('keydown', handleEscape);
+    };
+    
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            handleCancel();
+        }
+    };
+    
+    confirmBtn.addEventListener('click', handleConfirm);
+    cancelBtn.addEventListener('click', handleCancel);
+    document.addEventListener('keydown', handleEscape);
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            handleCancel();
+        }
+    }, { once: true });
 }
