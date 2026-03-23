@@ -107,6 +107,7 @@
 
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .event-card-title:focus,
@@ -157,10 +158,14 @@
 
 .event-card-time {
     font-size: 14px;
-    width: 75px;
-    padding-left: 5px;
     color: #7a7a7a;
     margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    width: 80px;
+    padding-left: 10px;
 }
 
 .urgent-text {
@@ -175,4 +180,36 @@
 .event-card-time:empty::before {
     content: "00:00 pm";
     color: #ccc;
+}
+
+.event-delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0%;
+    transition: opacity 0.2s ease;
+}
+
+.event-delete-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.event-card:hover .event-delete-btn {
+    opacity: 0.5;
+}
+
+.event-delete-btn:hover {
+    transform: scale(1.15);
+}
+
+.event-delete-btn:active {
+    transform: scale(0.95);
 }

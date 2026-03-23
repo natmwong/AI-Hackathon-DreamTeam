@@ -12,13 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleAddEvent(event) {
     event.preventDefault();
-    addEvent('Event Title...', '00:00 pm');
+    addEvent('Title...', '00:00 pm');
 }
 
 function addEvent(name, time) {
     const eventCard = document.createElement('div');
     eventCard.className = 'event-card';
     eventCard.innerHTML = `
+        <button class="event-delete-btn">
+            <img src="image/close.svg" alt="Delete">
+        </button>
         <div class="event-card-type">Upcoming</div>
         <div class="event-card-title" contenteditable="true" spellcheck="false"></div>
         <div class="event-card-time" contenteditable="true" spellcheck="false"></div>
@@ -104,5 +107,15 @@ function setupCardListeners() {
             titleField.blur();
             timeField.blur();
         });
+
+        // Delete button functionality
+        const deleteBtn = card.querySelector('.event-delete-btn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete this event?')) {
+                    card.remove();
+                }
+            });
+        }
     });
 }

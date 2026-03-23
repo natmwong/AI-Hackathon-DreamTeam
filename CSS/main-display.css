@@ -8,9 +8,11 @@
     z-index: 20;
     pointer-events: none;
 }
+
 .timer-btn img {
     filter: brightness(0) saturate(100%) opacity(0.5);
 }
+
 #main-display {
     display: flex;
     flex-direction: row;
