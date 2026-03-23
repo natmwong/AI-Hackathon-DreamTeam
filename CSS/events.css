@@ -6,15 +6,28 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    z-index: 1000;
 }
 
 .events-content {
     display: flex;
     align-items: center;
     gap: 18px;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100%;
 }
 
+.events-cards-selection {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+    scrollbar-gutter: stable;
+    width: 320px;
+    min-width: 0;
+}
 .events-add-btn {
     width: 52px;
     height: 52px;
@@ -31,6 +44,49 @@
 
     flex-shrink: 0;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.events-add-btn:hover {
+    opacity: 70%;
+    transform: scale(1.05);
+}
+
+.events-add-btn:active {
+    transform: scale(0.95);
+}
+
+.events-cards-selection::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+
+@keyframes Bounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.event-bell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-left: 0px;
+}
+
+.event-bell img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
 }
 
 .event-card {
@@ -39,6 +95,9 @@
     border-radius: 22px;
     padding: 18px 16px;
     box-sizing: border-box;
+    flex-shrink: 0;
+    margin-bottom: 5px;
+    animation: Bounce 0.5s ease-out;
 
     filter: drop-shadow(0px 4px 1px rgba(0, 0, 0, 0.35));
 
@@ -48,6 +107,37 @@
 
     display: flex;
     flex-direction: column;
+}
+
+.event-card-title:focus,
+.event-card-time:focus {
+    outline: 2px solid #0A87E1;
+    outline-offset: -1px;
+    border-radius: 8px;
+}
+
+.event-card-check {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    transition: transform 0.2s ease;
+}
+
+.event-card-check img {
+    width: 20px;
+    height: 20px;
+}
+
+.event-card-check:hover {
+    transform: scale(1.1);
+}
+
+.event-card-check:active {
+    transform: scale(0.95);
 }
 
 .event-card-type {
@@ -67,10 +157,22 @@
 
 .event-card-time {
     font-size: 14px;
+    width: 75px;
+    padding-left: 5px;
     color: #7a7a7a;
     margin-top: auto;
 }
 
 .urgent-text {
     color: #d13a2f;
+}
+
+.event-card-title:empty::before {
+    content: "Title...";
+    color: #ccc;
+}
+
+.event-card-time:empty::before {
+    content: "00:00 pm";
+    color: #ccc;
 }
