@@ -2,72 +2,110 @@
 // --- Task List Interactivity ---
 document.addEventListener('DOMContentLoaded', function() {
 	const addBtn = document.querySelector('.add-btn');
-	const modal = document.getElementById('addTaskModal');
-	const taskTitleInput = document.getElementById('taskTitleInput');
-	const confirmBtn = document.getElementById('confirmAddTask');
-	const cancelBtn = document.getElementById('cancelAddTask');
 	const taskList = document.querySelector('.task-list');
+	let tasks = [];
+	let modalLoaded = false;
+	let modal, taskTitleInput, confirmBtn, cancelBtn;
 
-	// Show modal
+	// Show modal (load if needed)
 	addBtn.addEventListener('click', () => {
+		if (!modalLoaded) {
+			fetch('task-modal.html')
+				.then(res => res.text())
+				.then(html => {
+					const temp = document.createElement('div');
+					temp.innerHTML = html;
+					document.body.appendChild(temp.firstElementChild);
+					setupModalRefs();
+					showModal();
+					modalLoaded = true;
+				});
+		} else {
+			showModal();
+		}
+	});
+
+	function setupModalRefs() {
+		modal = document.getElementById('addTaskModal');
+		taskTitleInput = document.getElementById('taskTitleInput');
+		confirmBtn = document.getElementById('confirmAddTask');
+		cancelBtn = document.getElementById('cancelAddTask');
+
+		// Hide modal
+		cancelBtn.addEventListener('click', closeModal);
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) closeModal();
+		});
+
+		// Add task
+		confirmBtn.addEventListener('click', () => {
+			const title = taskTitleInput.value.trim();
+			if (!title) return taskTitleInput.focus();
+			tasks.push({ title, completed: false });
+			renderTasks();
+			closeModal();
+		});
+		taskTitleInput.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') confirmBtn.click();
+		});
+	}
+
+	function showModal() {
 		modal.style.display = 'flex';
 		taskTitleInput.value = '';
 		setTimeout(() => taskTitleInput.focus(), 100);
-	});
-
-	// Hide modal
+	}
 	function closeModal() {
 		modal.style.display = 'none';
 		taskTitleInput.value = '';
 	}
-	cancelBtn.addEventListener('click', closeModal);
-	modal.addEventListener('click', (e) => {
-		if (e.target === modal) closeModal();
-	});
 
-	// Add task
-	confirmBtn.addEventListener('click', () => {
-		const title = taskTitleInput.value.trim();
-		if (!title) return taskTitleInput.focus();
-		addTask(title);
-		closeModal();
-	});
-	taskTitleInput.addEventListener('keydown', (e) => {
-		if (e.key === 'Enter') confirmBtn.click();
-	});
-
-	// Add task to list
-	function addTask(title) {
-		const li = document.createElement('li');
-		li.className = 'task';
-		li.innerHTML = `
-			<input type="checkbox" />
-			<span class="task-title" tabindex="0">${escapeHTML(title)}</span>
-		`;
-		// Enable editing on click
-		const span = li.querySelector('.task-title');
-		span.addEventListener('click', () => makeEditable(span));
-		span.addEventListener('keydown', (e) => {
-			if (e.key === 'Enter') e.preventDefault();
+	// Render tasks
+	function renderTasks() {
+		taskList.innerHTML = '';
+		// Find the index of the first incomplete (not completed) task
+		const firstIncompleteIdx = tasks.findIndex(t => !t.completed);
+		tasks.forEach((task, idx) => {
+			const li = document.createElement('li');
+			li.className = 'task';
+			if (task.completed) {
+				li.classList.add('completed');
+			} else if (idx !== firstIncompleteIdx) {
+				li.classList.add('muted');
+			}
+			li.innerHTML = `
+				<input type="checkbox" ${task.completed ? 'checked' : ''} />
+				<span class="task-title" tabindex="0">${escapeHTML(task.title)}</span>
+			`;
+			// Checkbox logic
+			const checkbox = li.querySelector('input[type="checkbox"]');
+			checkbox.addEventListener('change', () => {
+				task.completed = checkbox.checked;
+				renderTasks();
+			});
+			// Enable editing on click
+			const span = li.querySelector('.task-title');
+			span.addEventListener('click', () => makeEditable(span, task, idx));
+			span.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter') e.preventDefault();
+			});
+			taskList.appendChild(li);
 		});
-		taskList.appendChild(li);
 	}
 
 	// Make task title editable
-	function makeEditable(span) {
+	function makeEditable(span, task, idx) {
 		if (span.isContentEditable) return;
 		span.contentEditable = 'true';
 		span.focus();
-		// Select all text
 		document.execCommand('selectAll', false, null);
-		// Save on blur or Enter
 		function finishEdit(e) {
 			if (e.type === 'blur' || (e.type === 'keydown' && e.key === 'Enter')) {
 				span.contentEditable = 'false';
 				span.removeEventListener('blur', finishEdit);
 				span.removeEventListener('keydown', finishEdit);
-				// Optionally trim whitespace
-				span.textContent = span.textContent.trim();
+				task.title = span.textContent.trim();
+				renderTasks();
 			}
 		}
 		span.addEventListener('blur', finishEdit);
