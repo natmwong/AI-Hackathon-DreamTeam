@@ -12,12 +12,21 @@
         <link rel="stylesheet" href="CSS/task-modal.css">
         <link rel="stylesheet" href="CSS/main-display.css">
         <link rel="stylesheet" href="CSS/breathe-modal.css">
+<<<<<<< HEAD
+=======
+        <link rel="stylesheet" href="CSS/ask-flow.css">
+        <link rel="stylesheet" href="CSS/flowai-modal.css">
+        <link rel="stylesheet" href="CSS/flowai-msg-actions.css">
+>>>>>>> tasks
         <script src="scripts/timer.js"></script>
         <script src="scripts/event.js"></script>
         <script src="scripts/task.js"></script>
         <script src="scripts/breathe.js"></script>
         <script src="scripts/task.js"></script>
+<<<<<<< HEAD
         <script src="scripts/freakAnimation.js"></script>
+=======
+>>>>>>> tasks
     </head>
     <body ondragstart="return false;" ondrop="return false;">
     <header class="header">
@@ -125,8 +134,59 @@
                         </div>
                     </div>
                 </div>
+                <div class="ask-flow-row">
+                    <div class="ask-flow-container">
+                        <input type="text" class="ask-flow-input" placeholder="Ask flow..." />
+                    </div>
+                    <button class="ask-flow-btn" id="askFlowBtn">
+                        <img src="image/flow.svg" alt="Ask Flow" />
+                    </button>
+                </div>
+            </div>
             </div>
         </main>
+
+    <!-- Flow AI Modal -->
+    <div class="flowai-modal" id="flowaiModal" style="display:none;">
+        <div class="flowai-modal-content">
+            <div class="flowai-modal-header">
+                <span class="flowai-title">Flow Ai</span>
+                <button class="flowai-close" id="flowaiCloseBtn">&times;</button>
+            </div>
+            <div class="flowai-modal-body" id="flowaiMessages">
+                <!-- Example messages, remove or replace with JS later -->
+                <div class="flowai-msg flowai-msg-center">What do you want to accomplish today?</div>
+                <div class="flowai-msg flowai-msg-user">
+                    Hey Flow, today I need to catch up on emails from clients and my team. I also need to update the sales spreadsheet with the latest numbers and make sure everything is correct. There’s some messy data I should clean up too. I have to prepare slides for our team meeting with updates and metrics. Also I should organize the shared drive and archive old files. And I need to follow up with some clients about pending requests.
+                </div>
+                <div class="flowai-msg flowai-msg-ai flowai-msg-list">
+                    <div>I’ve organized your day into actionable tasks so you can stay focused and avoid overload:</div>
+                    <ul>
+                        <li>Check and respond to priority emails from clients and internal team members</li>
+                        <li>Update the sales spreadsheet with the latest numbers and double check for accuracy</li>
+                        <li>Review and clean up data entries to remove duplicates and correct errors</li>
+                        <li>Prepare slides for the team meeting including key metrics, updates, and action items</li>
+                        <li>Organize files in the shared drive by category and archive outdated documents</li>
+                        <li>Follow up with clients on pending requests and confirm next steps or deadlines</li>
+                    </ul>
+                    <div class="flowai-msg-actions">
+                        <button class="flowai-edit-btn" title="Edit">
+                            <img src="image/border_color.svg" alt="Edit" />
+                        </button>
+                        <button class="flowai-arrow-btn" title="Details">
+                            <img src="image/arrow_forward.svg" alt="Details" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Uncomment for message input to Flow -->
+            <!-- <div class="flowai-modal-footer">
+                <input type="text" class="flowai-input" placeholder="Type your message..." />
+                <button class="flowai-send-btn">
+                    <img src="image/flow.svg" alt="Send" />
+                </button>
+            </div> -->
+        </div>
     </div>
 
     <!-- Confirmation Modal -->
@@ -172,6 +232,7 @@
                 </div>
                 
                 <div class="settings-section">
+<<<<<<< HEAD
                     <label class="settings-label">Display Mode</label>
                     <div class="settings-toggle">
                         <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
@@ -181,6 +242,14 @@
                             <span class="toggle-text-contrast">Contrast</span>
                         </label>
                     </div>
+=======
+                    <label class="settings-label">Theme</label>
+                    <select class="settings-input">
+                        <option selected>Light</option>
+                        <option>Dark</option>
+                        <option>Auto</option>
+                    </select>
+>>>>>>> tasks
                 </div>
                 
                 <div class="settings-section">
@@ -197,5 +266,23 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+<script>
+// Modal open/close logic
+const askFlowBtn = document.getElementById('askFlowBtn');
+const flowaiModal = document.getElementById('flowaiModal');
+const flowaiCloseBtn = document.getElementById('flowaiCloseBtn');
+askFlowBtn.addEventListener('click', () => {
+    flowaiModal.style.display = 'flex';
+});
+flowaiCloseBtn.addEventListener('click', () => {
+    flowaiModal.style.display = 'none';
+});
+window.addEventListener('click', (e) => {
+    if (e.target === flowaiModal) flowaiModal.style.display = 'none';
+});
+</script>
+>>>>>>> tasks
 </body>
 </html>

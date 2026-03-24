@@ -1,0 +1,60 @@
+/* Row for Ask Flow input and button */
+.ask-flow-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 100px;
+  margin-left: 126px;
+}
+
+.ask-flow-container {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  background: #f4f7fa;
+  border-radius: 30px 30px 0px 30px;
+  padding: 6px 12px 6px 18px;
+  margin: 0;
+  box-shadow: 
+        0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
+  border: 1px solid #ffffff;
+  width: 85%;
+  position: relative;
+}
+.ask-flow-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 18px;
+  color: #00000080;
+  flex: 1;
+  padding: 8px 0;
+}
+.ask-flow-btn {
+  background: #f4f7fa;
+  border: 1px solid #ffffff;
+  outline: none;
+  border-radius: 70%;
+  opacity: 90%;
+  width: 42px;
+  height: 42px;
+  margin-top: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+        0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
+  margin-left: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.ask-flow-btn:hover {
+  opacity: 100%;
+  transform: scale(1.05);
+}
+.ask-flow-btn img {
+  width: 42px;
+  height: 42px;
+}
