@@ -1,0 +1,199 @@
+/* Flow AI Modal Styles */
+.flowai-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(220, 224, 235, 0.55);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+}
+.flowai-modal-content {
+  background: linear-gradient(180deg, #F0F3FA 0%, #E8F0FE 100%);
+  border-radius: 28px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 680px;
+  max-width: 95vw;
+  padding: 0px 0px 32px 0px;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  max-height: 90vh;
+  overflow: hidden;
+}
+.flowai-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 32px 0 32px;
+  position: relative;
+  border-bottom: none;
+}
+.flowai-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(180deg, #A0D5FA, #2E99E6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.flowai-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #b0b0b0;
+  cursor: pointer;
+  transition: color 0.2s;
+  position: absolute;
+  right: 32px;
+  top: 32px;
+}
+.flowai-close:hover {
+  color: #2E99E6;
+}
+.flowai-modal-body {
+  flex: 1;
+  padding: 24px 32px 12px 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: transparent;
+}
+.flowai-msg {
+  border-radius: 18px;
+  padding: 30px 30px;
+  margin-bottom: 0;
+  font-size: 16px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 90%;
+  word-break: break-word;
+  margin-left: 36px;
+  margin-right: 36px;
+}
+.flowai-msg-user {
+  align-self: flex;
+  background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
+  color: #000000;
+  text-align: left;
+  border: 1px solid #ffffff;
+}
+.flowai-msg-center {
+  align-self: flex;
+  background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
+  color: #000000;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  border-radius: 18px;
+  padding: 30px 30px;
+  margin-bottom: 0;
+  font-size: 1.08rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 90%;
+  word-break: break-word;
+  margin-left: 36px;
+  margin-right: 36px;
+  /* Remove border-image, use pseudo-element for gradient border */
+}
+.flowai-msg-center::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 18px;
+  padding: 2px;
+  background: linear-gradient(90deg, #4DA9EB, #9ED4FA);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.flowai-msg-ai {
+  align-self: flex;
+  background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
+  color: #000000;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  border-radius: 18px;
+  padding: 30px 30px;
+  margin-bottom: 0;
+  font-size: 1.08rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  max-width: 90%;
+  word-break: break-word;
+  margin-left: 36px;
+  margin-right: 36px;
+  /* Remove border-image, use pseudo-element for gradient border */
+}
+.flowai-msg-ai::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 18px;
+  padding: 2px;
+  background: linear-gradient(90deg, #4DA9EB, #9ED4FA);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.flowai-msg-list ul {
+  margin: 10px 0 0 0;
+  padding-left: 22px;
+  color: #000000;
+}
+.flowai-modal-footer {
+  display: flex;
+  align-items: center;
+  padding: 18px 32px 24px 32px;
+  border-top: 1px solid #e0e7ef;
+  background: transparent;
+  gap: 10px;
+}
+.flowai-input {
+  flex: 1;
+  border: none;
+  border-radius: 18px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  background: #f4f7fa;
+  color: #222;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.flowai-send-btn {
+  background: #e3f0ff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+.flowai-send-btn:hover {
+  background: #b3d4fc;
+}
+.flowai-send-btn img {
+  width: 28px;
+  height: 28px;
+}

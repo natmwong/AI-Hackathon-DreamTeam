@@ -1,0 +1,26 @@
+.flowai-msg-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+.flowai-edit-btn, .flowai-arrow-btn {
+  background: #fafdff;
+  border: transparent;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.18s, border-color 0.18s;
+  padding: 0;
+}
+.flowai-edit-btn:hover, .flowai-arrow-btn:hover {
+  box-shadow: 0 4px 16px rgba(46,153,230,0.12);
+}
+.flowai-edit-btn img, .flowai-arrow-btn img {
+  width: 22px;
+  height: 22px;
+}
