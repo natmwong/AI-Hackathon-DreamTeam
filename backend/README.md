@@ -59,3 +59,4 @@ Reflection:
 
 - Uses local JSON storage  
 - No database  
+- "alice" is the test user i used
