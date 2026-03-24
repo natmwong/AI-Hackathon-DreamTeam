@@ -54,6 +54,12 @@ function setupCardListeners() {
         const timeField = card.querySelector('.event-card-time');
         const checkBtn = card.querySelector('.event-card-check');
         
+        // Skip if required elements don't exist
+        if (!titleField || !timeField || !checkBtn) {
+            console.warn('Event card missing required elements', { titleField, timeField, checkBtn });
+            return;
+        }
+        
         // Store original values
         let originalTitle = titleField.textContent;
         let originalTime = timeField.textContent;

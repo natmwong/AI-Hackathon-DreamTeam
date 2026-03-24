@@ -1,8 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const pomodoroRouter = require('./routes/pomodoroRoutes');
 const tasksRouter    = require('./routes/tasksRoutes');
 
 const app = express();
+
+// Enable CORS
+app.use(cors());
+
 app.use(express.json());
 
 

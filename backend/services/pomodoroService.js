@@ -10,9 +10,15 @@
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const POMODORO_WORK_MINUTES = 25;
-const POMODORO_BREAK_MINUTES = 5;
-const POMODORO_CYCLE_MINUTES = POMODORO_WORK_MINUTES + POMODORO_BREAK_MINUTES; // 30 min
+// Original production values:
+// const POMODORO_WORK_MINUTES = 1500;   // 25 min
+// const POMODORO_BREAK_MINUTES = 300;   // 5 min
+// const POMODORO_CYCLE_MINUTES = 1800;  // 30 min
+
+// Testing values (in seconds for fast iteration):
+const POMODORO_WORK_MINUTES = 10; // 10 seconds for testing
+const POMODORO_BREAK_MINUTES = 3; // 3 seconds for testing
+const POMODORO_CYCLE_MINUTES = POMODORO_WORK_MINUTES + POMODORO_BREAK_MINUTES; // 13 seconds
 
 const SHIFTS = {
   morning: { start: { h: 8, m: 0 }, end: { h: 12, m: 0 }, label: 'morning' },
