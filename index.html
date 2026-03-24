@@ -12,21 +12,15 @@
         <link rel="stylesheet" href="CSS/task-modal.css">
         <link rel="stylesheet" href="CSS/main-display.css">
         <link rel="stylesheet" href="CSS/breathe-modal.css">
-<<<<<<< HEAD
-=======
         <link rel="stylesheet" href="CSS/ask-flow.css">
         <link rel="stylesheet" href="CSS/flowai-modal.css">
         <link rel="stylesheet" href="CSS/flowai-msg-actions.css">
->>>>>>> tasks
         <script src="scripts/timer.js"></script>
         <script src="scripts/event.js"></script>
         <script src="scripts/task.js"></script>
         <script src="scripts/breathe.js"></script>
-        <script src="scripts/task.js"></script>
-<<<<<<< HEAD
         <script src="scripts/freakAnimation.js"></script>
-=======
->>>>>>> tasks
+        <script src="scripts/flowai-modal.js"></script>
     </head>
     <body ondragstart="return false;" ondrop="return false;">
     <header class="header">
@@ -232,24 +226,12 @@
                 </div>
                 
                 <div class="settings-section">
-<<<<<<< HEAD
-                    <label class="settings-label">Display Mode</label>
-                    <div class="settings-toggle">
-                        <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
-                        <label for="contrastModeToggle" class="toggle-label">
-                            <span class="toggle-text-default">Default</span>
-                            <span class="toggle-switch"></span>
-                            <span class="toggle-text-contrast">Contrast</span>
-                        </label>
-                    </div>
-=======
                     <label class="settings-label">Theme</label>
                     <select class="settings-input">
                         <option selected>Light</option>
                         <option>Dark</option>
                         <option>Auto</option>
                     </select>
->>>>>>> tasks
                 </div>
                 
                 <div class="settings-section">
@@ -266,23 +248,74 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-<script>
-// Modal open/close logic
-const askFlowBtn = document.getElementById('askFlowBtn');
-const flowaiModal = document.getElementById('flowaiModal');
-const flowaiCloseBtn = document.getElementById('flowaiCloseBtn');
-askFlowBtn.addEventListener('click', () => {
-    flowaiModal.style.display = 'flex';
-});
-flowaiCloseBtn.addEventListener('click', () => {
-    flowaiModal.style.display = 'none';
-});
-window.addEventListener('click', (e) => {
-    if (e.target === flowaiModal) flowaiModal.style.display = 'none';
-});
-</script>
->>>>>>> tasks
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-content">
+            <div class="confirmation-header">
+                <h3>Confirm Delete</h3>
+            </div>
+            <div class="confirmation-body">
+                <p id="confirmationMessage">Are you sure you want to delete this event?</p>
+            </div>
+            <div class="confirmation-actions">
+                <button class="confirmation-btn confirmation-cancel" id="cancelBtn">Cancel</button>
+                <button class="confirmation-btn confirmation-delete" id="confirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button class="settings-close" id="settingsCloseBtn">
+                    <img src="image/close.svg" alt="Close">
+                </button>
+            </div>
+            
+            <div class="settings-body">
+                <div class="settings-section">
+                    <label class="settings-label">Username</label>
+                    <input type="text" class="settings-input" placeholder="Enter your name">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Email</label>
+                    <input type="email" class="settings-input" placeholder="your.email@example.com">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Work Hours</label>
+                    <input type="text" class="settings-input" placeholder="e.g., 9:00 AM - 5:00 PM">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Display Mode</label>
+                    <div class="settings-toggle">
+                        <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
+                        <label for="contrastModeToggle" class="toggle-label">
+                            <span class="toggle-text-default">Default</span>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-text-contrast">Contrast</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-checkbox">
+                        <input type="checkbox" checked>
+                        <span>Enable Notifications</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-actions">
+                <button class="settings-btn settings-cancel" id="settingsCancelBtn">Close</button>
+                <button class="settings-btn settings-save">Save Changes</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
