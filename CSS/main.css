@@ -1,3 +1,7 @@
+:root {
+    --timer-color: #2896E5;
+}
+
 body {
     font-family: 'Inter';
     user-select: none;
@@ -112,6 +116,33 @@ body {
 #task {
     height: 416px;
 }
+
+.default-mode-color {
+    background: linear-gradient(90deg, #0A87E1 0%, #A8D9FC 100%);
+}
+
+.default-progress-color {
+    background: linear-gradient(90deg, #0A87E1 0%, #A8D9FC 100%);
+}
+
+
+.default-timer-color {
+    --timer-color: #0A87E1;
+}
+
+.contrast-mode-color {
+    background: linear-gradient(0deg, #ff772d 0%, #FFDAC1 100%);
+}
+
+.contrast-progress-color {
+    background: linear-gradient(90deg, #FF5902 0%, #FFDAC1 100%);
+}
+
+.contrast-timer-color {
+    --timer-color: #FF5902;
+}
+
+
 
 
 

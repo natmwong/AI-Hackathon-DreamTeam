@@ -172,6 +172,38 @@ function setupSettingsModal() {
     const settingsCloseBtn = document.getElementById('settingsCloseBtn');
     const settingsCancelBtn = document.getElementById('settingsCancelBtn');
     const settingsSaveBtn = document.querySelector('.settings-save');
+    const contrastModeToggle = document.getElementById('contrastModeToggle');
+    
+    // Elements that need theme switching
+    const modeElement = document.getElementById('mode');
+    const progressBar = document.querySelector('.progression-bar');
+    const timerElement = document.getElementById('timer');
+    
+    // Function to switch theme classes
+    const switchTheme = (isContrast) => {
+        if (modeElement) {
+            modeElement.classList.toggle('default-mode-color', !isContrast);
+            modeElement.classList.toggle('contrast-mode-color', isContrast);
+        }
+        if (progressBar) {
+            progressBar.classList.toggle('default-progress-color', !isContrast);
+            progressBar.classList.toggle('contrast-progress-color', isContrast);
+        }
+        if (timerElement) {
+            timerElement.classList.toggle('default-timer-color', !isContrast);
+            timerElement.classList.toggle('contrast-timer-color', isContrast);
+        }
+        // Redraw timer canvas with new color
+        if (window.redrawTimer) {
+            window.redrawTimer();
+        }
+    };
+    
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'default';
+    const isContrast = savedTheme === 'contrast';
+    if (contrastModeToggle) contrastModeToggle.checked = isContrast;
+    switchTheme(isContrast);
     
     // Open settings modal
     if (settingsIcon) {
@@ -193,11 +225,21 @@ function setupSettingsModal() {
         settingsCancelBtn.addEventListener('click', closeSettingsModal);
     }
     
+    // Handle contrast mode toggle
+    if (contrastModeToggle) {
+        contrastModeToggle.addEventListener('change', () => {
+            switchTheme(contrastModeToggle.checked);
+        });
+    }
+    
     // Save settings
     if (settingsSaveBtn) {
         settingsSaveBtn.addEventListener('click', () => {
-            // Here you can add logic to save the settings
-            console.log('Settings saved!');
+            // Save theme preference
+            const theme = contrastModeToggle?.checked ? 'contrast' : 'default';
+            localStorage.setItem('theme', theme);
+            // Here you can add logic to save other settings
+            console.log('Settings saved! Theme:', theme);
             closeSettingsModal();
         });
     }

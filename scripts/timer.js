@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const stopBtn = document.getElementById('timer-restart');
 	const stopIcon = document.getElementById('timer-restart-icon');
 	const modeLabel = document.querySelector('.current-mode');
+	const timerElement = document.getElementById('timer');
 	const canvas = document.getElementById('timer-canvas');
 	const ctx = canvas.getContext('2d');
 
@@ -41,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		const radius = 100;
 		const center = 110;
 		const lineWidth = 12;
+		const styles = getComputedStyle(timerElement);
+		const timerColor = styles.getPropertyValue('--timer-color').trim();
+		
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		// Background circle
 		ctx.beginPath();
@@ -77,10 +81,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (progress > 0) {
 			ctx.beginPath();
 			ctx.arc(center, center, radius, -Math.PI/2, -Math.PI/2 + 2 * Math.PI * progress, false);
-			ctx.strokeStyle = isPaused ? '#A0D5FA' : '#2896E5';
+			ctx.globalAlpha = isPaused ? 0.5 : 1;
+			ctx.strokeStyle = timerColor;
 			ctx.lineWidth = lineWidth;
 			ctx.lineCap = 'round';
 			ctx.stroke();
+			ctx.globalAlpha = 1;
 		}
 	}
 
@@ -92,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		playPauseIcon.alt = 'Pause';
 		stopIcon.src = 'image/stop.svg';
 		stopIcon.alt = 'Stop';
+		updateDisplay();
 		timer = setInterval(() => {
 			if (timeLeft > 0) {
 				timeLeft--;
@@ -143,10 +150,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		clearInterval(timer);
 		isRunning = false;
 		isPaused = false;
+		timerElement.classList.remove('default-timer-color', 'contrast-timer-color');
 		timeLeft = getDuration();
 		playPauseIcon.src = 'image/play.svg';
 		playPauseIcon.alt = 'Play';
-		stopIcon.src = 'image/stop.svg';
 		stopIcon.alt = 'Stop';
 		updateDisplay();
 	}
@@ -155,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		clearInterval(timer);
 		isRunning = false;
 		isPaused = false;
-		playPauseIcon.src = 'image/play.svg';
+		timerElement.classList.remove('default-timer-color', 'contrast-timer-color');
 		playPauseIcon.alt = 'Play';
 		stopIcon.src = 'image/stop.svg';
 		stopIcon.alt = 'Stop';
@@ -182,4 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Initial display
 	updateDisplay();
+
+	// Expose updateDisplay globally so settings can trigger redraw
+	window.redrawTimer = updateDisplay;
 });

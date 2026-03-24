@@ -47,7 +47,7 @@
         <main class="dashboard">
             <div id="column1">
                 <div class="top" id="main-display">
-                    <div class="main-display-box" id="mode">
+                    <div class="main-display-box default-mode-color" id="mode">
                         <div class="mode-label">Mode:</div>
                         <div class="current-mode">Break</div>
                     </div>
@@ -88,7 +88,7 @@
                     <img class="animation freak-crawl" src="image/freak_crawl.gif" style="display: none;" >
                     <img class="animation freak-relax" src="image/freak_relax.png" style="display: none;" >
                     <div class="progress-bar">
-                        <div class="progression-bar"></div>
+                        <div class="progression-bar default-progress-color"></div>
                     </div>
                 </div>
                 <div class="box bottom" id="events">
@@ -171,12 +171,15 @@
                 </div>
                 
                 <div class="settings-section">
-                    <label class="settings-label">Theme</label>
-                    <select class="settings-input">
-                        <option selected>Light</option>
-                        <option>Dark</option>
-                        <option>Auto</option>
-                    </select>
+                    <label class="settings-label">Display Mode</label>
+                    <div class="settings-toggle">
+                        <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
+                        <label for="contrastModeToggle" class="toggle-label">
+                            <span class="toggle-text-default">Default</span>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-text-contrast">Contrast</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="settings-section">

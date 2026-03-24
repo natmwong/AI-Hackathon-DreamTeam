@@ -57,10 +57,8 @@
 .progression-bar {
     width: 250px;
     height: 25px;
-    background: linear-gradient(90deg, #0A87E1 0%, #A8D9FC 100%);
     border-radius: 15px;
     position: absolute;
     z-index: 600;
 }
-
 
