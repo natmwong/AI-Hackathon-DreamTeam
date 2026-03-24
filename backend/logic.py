@@ -1,3 +1,9 @@
+from ai import (
+    break_goal_into_tasks_ai,
+    classify_input_ai,
+    generate_daily_tasks_ai
+)
+
 EVENT_KEYWORDS = [
     "meeting", "appointment", "call", "interview",
     "doctor", "dentist", "lunch", "dinner", "class"
@@ -5,9 +11,15 @@ EVENT_KEYWORDS = [
 
 
 def looks_like_event(text):
-    text = text.lower()
-    return any(word in text for word in EVENT_KEYWORDS)
+    text_lower = text.lower().strip()
 
+    if len(text.split()) > 12:
+        return False
+
+    if any(word in text_lower for word in EVENT_KEYWORDS):
+        return True
+
+    return classify_input_ai(text) == "event"
 
 def extract_time(text):
     text_lower = text.lower()
@@ -30,9 +42,8 @@ def generate_event_name(description):
 
 
 def break_goal_into_tasks(goal):
-    return [
-        f"Define what done looks like for: {goal}",
-        f"Start the first step for: {goal}",
-        f"Make progress on: {goal}",
-        f"Review and wrap up: {goal}"
-    ]
+    return break_goal_into_tasks_ai(goal)
+
+
+def generate_daily_tasks(text):
+    return generate_daily_tasks_ai(text)

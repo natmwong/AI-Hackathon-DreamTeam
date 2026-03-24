@@ -8,7 +8,8 @@ from logic import (
     extract_time,
     extract_location,
     generate_event_name,
-    break_goal_into_tasks
+    break_goal_into_tasks,
+    generate_daily_tasks
 )
 from medal import create_medal
 
@@ -28,12 +29,17 @@ def clock_in():
 
     ensure_user(user_id)
 
-    session = read_json(user_id, "session.json")
-    session["state"] = "awaiting_goals"
-    session["clock_in_time"] = datetime.now().isoformat()
-    session["clock_out_time"] = None
-    session["pending_event"] = None
+    session = {
+        "state": "awaiting_goals",
+        "clock_in_time": datetime.now().isoformat(),
+        "clock_out_time": None,
+        "pending_event": None
+    }
+
     write_json(user_id, "session.json", session)
+    write_json(user_id, "tasks.json", [])
+    write_json(user_id, "events.json", [])
+    write_json(user_id, "achievements.json", [])
 
     return jsonify({
         "message": "Clock-in recorded.",
@@ -67,10 +73,17 @@ def message():
     state = session["state"]
 
     if state is None:
-        return jsonify({"error": "Please clock in first."}), 400
+        return jsonify({
+            "response": "Please clock in first.",
+            "tasks_created": [],
+            "events_created": [],
+            "needs_followup": False,
+            "followup_type": None
+        }), 400
 
     if state == "awaiting_event_details":
         pending = session["pending_event"]
+
         event_time = extract_time(text) or pending.get("time")
         location = extract_location(text) or pending.get("location")
 
@@ -82,16 +95,23 @@ def message():
                 missing.append("location")
 
             return jsonify({
-                "response": f"I still need: {', '.join(missing)}."
+                "response": f"That sounds like an event. I still need: {', '.join(missing)}.",
+                "tasks_created": [],
+                "events_created": [],
+                "needs_followup": True,
+                "followup_type": "event_details"
             })
 
+        event_name = generate_event_name(pending["description"])
+
         events = read_json(user_id, "events.json")
-        events.append({
-            "name": generate_event_name(pending["description"]),
+        new_event = {
+            "name": event_name,
             "description": pending["description"],
             "time": event_time,
             "location": location
-        })
+        }
+        events.append(new_event)
         write_json(user_id, "events.json", events)
 
         session["state"] = "collecting_items"
@@ -99,7 +119,11 @@ def message():
         write_json(user_id, "session.json", session)
 
         return jsonify({
-            "response": "Event added. You can send another goal or event."
+            "response": "Event added.",
+            "tasks_created": [],
+            "events_created": [new_event],
+            "needs_followup": False,
+            "followup_type": None
         })
 
     if state in ["awaiting_goals", "collecting_items"]:
@@ -123,30 +147,48 @@ def message():
                     missing.append("location")
 
                 return jsonify({
-                    "response": f"That sounds like an event. I need: {', '.join(missing)}."
+                    "response": f"That sounds like an event. I need: {', '.join(missing)}.",
+                    "tasks_created": [],
+                    "events_created": [],
+                    "needs_followup": True,
+                    "followup_type": "event_details"
                 })
 
+            event_name = generate_event_name(text)
+
             events = read_json(user_id, "events.json")
-            events.append({
-                "name": generate_event_name(text),
+            new_event = {
+                "name": event_name,
                 "description": text,
                 "time": event_time,
                 "location": location
-            })
+            }
+            events.append(new_event)
             write_json(user_id, "events.json", events)
 
             return jsonify({
-                "response": "Event added."
+                "response": "Event added.",
+                "tasks_created": [],
+                "events_created": [new_event],
+                "needs_followup": False,
+                "followup_type": None
             })
 
         tasks = read_json(user_id, "tasks.json")
-        new_tasks = break_goal_into_tasks(text)
 
+        if len(text.split()) > 15:
+            new_tasks = generate_daily_tasks(text)
+        else:
+            new_tasks = break_goal_into_tasks(text)
+
+        created_tasks = []
         for task in new_tasks:
-            tasks.append({
+            task_obj = {
                 "title": task,
                 "completed": False
-            })
+            }
+            tasks.append(task_obj)
+            created_tasks.append(task_obj)
 
         write_json(user_id, "tasks.json", tasks)
 
@@ -154,8 +196,11 @@ def message():
         write_json(user_id, "session.json", session)
 
         return jsonify({
-            "response": "Goal added and broken into tasks.",
-            "tasks_created": new_tasks
+            "response": "I organized your input into actionable tasks.",
+            "tasks_created": created_tasks,
+            "events_created": [],
+            "needs_followup": False,
+            "followup_type": None
         })
 
     if state == "awaiting_reflection":
@@ -163,7 +208,11 @@ def message():
 
         if len(parts) < 3:
             return jsonify({
-                "response": "Please send 3 achievements separated by semicolons."
+                "response": "Please send 3 achievements separated by semicolons.",
+                "tasks_created": [],
+                "events_created": [],
+                "needs_followup": True,
+                "followup_type": "reflection"
             })
 
         write_json(user_id, "achievements.json", parts[:3])
@@ -182,10 +231,20 @@ def message():
 
         return jsonify({
             "response": "Great job today. Your medal was created and saved.",
+            "tasks_created": [],
+            "events_created": [],
+            "needs_followup": False,
+            "followup_type": None,
             "medal_path": medal_path
         })
 
-    return jsonify({"response": "Session is complete."})
+    return jsonify({
+        "response": "Session is complete.",
+        "tasks_created": [],
+        "events_created": [],
+        "needs_followup": False,
+        "followup_type": None
+    })
 
 
 @app.route("/tasks/<user_id>", methods=["GET"])

@@ -1,18 +1,26 @@
 [
   {
-    "title": "Define what done looks like for: Finish my Project Proposal",
+    "title": "Catch up on client and team emails.",
     "completed": false
   },
   {
-    "title": "Start the first step for: Finish my Project Proposal",
+    "title": "Update sales spreadsheet with latest numbers.",
     "completed": false
   },
   {
-    "title": "Make progress on: Finish my Project Proposal",
+    "title": "Clean up messy data.",
     "completed": false
   },
   {
-    "title": "Review and wrap up: Finish my Project Proposal",
+    "title": "Prepare team meeting slides.",
+    "completed": false
+  },
+  {
+    "title": "Organize shared drive and archive old files.",
+    "completed": false
+  },
+  {
+    "title": "Follow up with clients about pending requests.",
     "completed": false
   }
 ]
