@@ -1,6 +1,10 @@
 [
   {
-    "title": "Catch up on client and team emails.",
+    "title": "Catch up on client emails.",
+    "completed": false
+  },
+  {
+    "title": "Catch up on team emails.",
     "completed": false
   },
   {
@@ -8,19 +12,23 @@
     "completed": false
   },
   {
-    "title": "Clean up messy data.",
+    "title": "Correct and clean sales spreadsheet data.",
     "completed": false
   },
   {
-    "title": "Prepare team meeting slides.",
+    "title": "Prepare team meeting slides (updates and metrics).",
     "completed": false
   },
   {
-    "title": "Organize shared drive and archive old files.",
+    "title": "Organize shared drive.",
     "completed": false
   },
   {
-    "title": "Follow up with clients about pending requests.",
+    "title": "Archive old files.",
+    "completed": false
+  },
+  {
+    "title": "Follow up with clients on pending requests.",
     "completed": false
   }
 ]

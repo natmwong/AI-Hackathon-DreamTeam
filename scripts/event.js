@@ -23,13 +23,13 @@ function addEvent(name, time) {
     eventCard.className = 'event-card new-event';
     eventCard.innerHTML = `
         <button class="event-delete-btn">
-            <img src="image/close.svg" alt="Delete">
+            <img src="../image/close.svg" alt="Delete">
         </button>
         <div class="event-card-type">Upcoming</div>
         <div class="event-card-title" contenteditable="true" spellcheck="false"></div>
         <div class="event-card-time" contenteditable="true" spellcheck="false"></div>
         <button class="event-card-check" style="display: none;">
-            <img src="image/check.svg" alt="Save">
+            <img src="../image/check.svg" alt="Save">
         </button>
     `;
     

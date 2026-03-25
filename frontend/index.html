@@ -3,25 +3,25 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="CSS/main.css">
-        <link rel="stylesheet" href="CSS/events.css">
-        <link rel="stylesheet" href="CSS/sidebar.css">
-        <link rel="stylesheet" href="CSS/tracker.css">
-        <link rel="stylesheet" href="CSS/task.css">
-        <link rel="stylesheet" href="CSS/task-modal.css">
-        <link rel="stylesheet" href="CSS/main-display.css">
-        <link rel="stylesheet" href="CSS/breathe-modal.css">
-        <link rel="stylesheet" href="CSS/ask-flow.css">
-        <link rel="stylesheet" href="CSS/flowai-modal.css">
-        <link rel="stylesheet" href="CSS/flowai-msg-actions.css">
-        <script src="scripts/timer.js"></script>
-        <script src="scripts/event.js"></script>
-        <script src="scripts/task.js"></script>
-        <script src="scripts/breathe.js"></script>
-        <script src="scripts/freakAnimation.js"></script>
-        <script src="scripts/flowai-modal.js"></script>
-        <script src="scripts/app.js"></script>
+        <title>Flow Dash</title>
+        <link rel="stylesheet" href="../CSS/main.css">
+        <link rel="stylesheet" href="../CSS/events.css">
+        <link rel="stylesheet" href="../CSS/sidebar.css">
+        <link rel="stylesheet" href="../CSS/tracker.css">
+        <link rel="stylesheet" href="../CSS/task.css">
+        <link rel="stylesheet" href="../CSS/task-modal.css">
+        <link rel="stylesheet" href="../CSS/main-display.css">
+        <link rel="stylesheet" href="../CSS/breathe-modal.css">
+        <link rel="stylesheet" href="../CSS/ask-flow.css">
+        <link rel="stylesheet" href="../CSS/flowai-modal.css">
+        <link rel="stylesheet" href="../CSS/flowai-msg-actions.css">
+        <script src="../scripts/timer.js"></script>
+        <script src="../scripts/event.js"></script>
+        <script src="../scripts/task.js"></script>
+        <script src="../scripts/breathe.js"></script>
+        <script src="../scripts/freakAnimation.js"></script>
+        <script src="../scripts/flowai-modal.js"></script>
+        <script src="../scripts/app.js"></script>
     </head>
     <body ondragstart="return false;" ondrop="return false;">
     <header class="header">
@@ -34,16 +34,16 @@
     <div class="main">
         <aside class="sidebar">
             <div class="nav-app">
-                <img src="image/home.svg" alt="Home">
+                <img src="../image/home.svg" alt="Home">
             </div>
             <div class="nav-app">
-                <img src="image/calendar.svg" alt="Calendar">
+                <img src="../image/calendar.svg" alt="Calendar">
             </div>
             <div class="nav-app">
-                <img src="image/target.svg" alt="Breathe">
+                <img src="../image/target.svg" alt="Breathe">
             </div>
             <div class="setting-app">
-                <img src="image/setting.svg" alt="Setting">
+                <img src="../image/setting.svg" alt="Setting">
             </div>
         </aside>
 
@@ -51,6 +51,10 @@
 
         <main class="dashboard">
             <div id="column1">
+                <div class="check-btn-group">
+                    <button type="button" class="check-btn check-in-btn">Check In</button>
+                    <button type="button" class="check-btn check-out-btn">Check Out</button>
+                </div>
                 <div class="top" id="main-display">
                     <div class="main-display-box default-mode-color" id="mode">
                         <div class="mode-label">Mode:</div>
@@ -64,10 +68,10 @@
                         </div>
                             <div class="timer-controls">
                                 <button class="timer-btn" id="timer-playpause">
-                                    <img id="timer-playpause-icon" src="image/play.svg" alt="Play">
+                                    <img id="timer-playpause-icon" src="../image/play.svg" alt="Play">
                                 </button>
                                 <button class="timer-btn" id="timer-restart">
-                                    <img id="timer-restart-icon" src="image/stop.svg" alt="Stop">
+                                    <img id="timer-restart-icon" src="../image/stop.svg" alt="Stop">
                                 </button>
                         </div>
                     </div>
@@ -88,10 +92,10 @@
             <div id="column2">
                 <div class="box top" id="tracker">
                     
-                    <img class="animation freak-hide" src="image/freak_walk.gif" style="display: none;">
-                    <img class="animation freak-run" src="image/freak_run.gif" style="display: block;" >
-                    <img class="animation freak-crawl" src="image/freak_crawl.gif" style="display: none;" >
-                    <img class="animation freak-relax" src="image/freak_relax.png" style="display: none;" >
+                    <img class="animation freak-hide" src="../image/freak_walk.gif" style="display: none;">
+                    <img class="animation freak-run" src="../image/freak_run.gif" style="display: block;" >
+                    <img class="animation freak-crawl" src="../image/freak_crawl.gif" style="display: none;" >
+                    <img class="animation freak-relax" src="../image/freak_relax.png" style="display: none;" >
                     <div class="progress-bar">
                         <div class="progression-bar default-progress-color"></div>
                     </div>
@@ -101,7 +105,7 @@
 
                     <div class="events-content">
                         <div class="events-add-btn">
-                            <img src="image/add.svg" alt="Add Event">
+                            <img src="../image/add.svg" alt="Add Event">
                         </div>
 
                         <div class="events-cards-selection">
@@ -111,7 +115,7 @@
                                 <div class="event-card-time urgent-text">
                                     Right Now! 
                                     <span class="event-bell"> 
-                                        <img src="image/notifications-urgent.svg" alt="Notification">
+                                        <img src="../image/notifications-urgent.svg" alt="Notification">
                                     </span>
                                 </div>
                             </div>
@@ -122,7 +126,7 @@
                                 <div class="event-card-time">
                                     3:00 pm 
                                     <span class="event-bell"> 
-                                        <img src="image/notifications.svg" alt="Notification">
+                                        <img src="../image/notifications.svg" alt="Notification">
                                     </span>
                                 </div>
                             </div>
@@ -134,7 +138,7 @@
                         <input type="text" class="ask-flow-input" placeholder="Ask flow..." />
                     </div>
                     <button class="ask-flow-btn" id="askFlowBtn">
-                        <img src="image/flow.svg" alt="Ask Flow" />
+                        <img src="../image/flow.svg" alt="Ask Flow" />
                     </button>
                 </div>
             </div>
@@ -166,21 +170,21 @@
                     </ul>
                     <div class="flowai-msg-actions">
                         <button class="flowai-edit-btn" title="Edit">
-                            <img src="image/border_color.svg" alt="Edit" />
+                            <img src="../image/border_color.svg" alt="Edit" />
                         </button>
                         <button class="flowai-arrow-btn" title="Details">
-                            <img src="image/arrow_forward.svg" alt="Details" />
+                            <img src="../image/arrow_forward.svg" alt="Details" />
                         </button>
                     </div>
                 </div>
             </div>
             <!-- Uncomment for message input to Flow -->
-            <!-- <div class="flowai-modal-footer">
+            <div class="flowai-modal-footer">
                 <input type="text" class="flowai-input" placeholder="Type your message..." />
                 <button class="flowai-send-btn">
-                    <img src="image/flow.svg" alt="Send" />
+                    <img src="../image/flow.svg" alt="Send" />
                 </button>
-            </div> -->
+            </div>
         </div>
     </div>
 
@@ -206,7 +210,7 @@
             <div class="settings-header">
                 <h3>Settings</h3>
                 <button class="settings-close" id="settingsCloseBtn">
-                    <img src="image/close.svg" alt="Close">
+                    <img src="../image/close.svg" alt="Close">
                 </button>
             </div>
             
@@ -252,23 +256,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Confirmation Modal -->
-    <div class="confirmation-modal" id="confirmationModal">
-        <div class="confirmation-content">
-            <div class="confirmation-header">
-                <h3>Confirm Delete</h3>
-            </div>
-            <div class="confirmation-body">
-                <p id="confirmationMessage">Are you sure you want to delete this event?</p>
-            </div>
-            <div class="confirmation-actions">
-                <button class="confirmation-btn confirmation-cancel" id="cancelBtn">Cancel</button>
-                <button class="confirmation-btn confirmation-delete" id="confirmBtn">Delete</button>
-            </div>
-        </div>
-    </div>
-
     
 </body>
 </html>

@@ -94,9 +94,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (isRunning) return;
 		isRunning = true;
 		isPaused = false;
-		playPauseIcon.src = 'image/pause.svg';
+		playPauseIcon.src = '../image/pause.svg';
 		playPauseIcon.alt = 'Pause';
-		stopIcon.src = 'image/stop.svg';
+		stopIcon.src = '../image/stop.svg';
 		stopIcon.alt = 'Stop';
 		updateDisplay();
 		timer = setInterval(() => {
@@ -106,9 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			} else {
 				clearInterval(timer);
 				isRunning = false;
-				playPauseIcon.src = 'image/play.svg';
+				playPauseIcon.src = '../image/play.svg';
 				playPauseIcon.alt = 'Play';
-				stopIcon.src = 'image/stop.svg';
+				stopIcon.src = '../image/stop.svg';
 				stopIcon.alt = 'Stop';
 				// Switch mode
 				if (isWorkMode) {
@@ -139,9 +139,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		clearInterval(timer);
 		isRunning = false;
 		isPaused = true;
-		playPauseIcon.src = 'image/play.svg';
+		playPauseIcon.src = '../image/play.svg';
 		playPauseIcon.alt = 'Play';
-		stopIcon.src = 'image/stop.svg';
+		stopIcon.src = '../image/stop.svg';
 		stopIcon.alt = 'Stop';
         updateDisplay();
 	}
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		isPaused = false;
 		timerElement.classList.remove('default-timer-color', 'contrast-timer-color');
 		timeLeft = getDuration();
-		playPauseIcon.src = 'image/play.svg';
+		playPauseIcon.src = '../image/play.svg';
 		playPauseIcon.alt = 'Play';
 		stopIcon.alt = 'Stop';
 		updateDisplay();
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		isPaused = false;
 		timerElement.classList.remove('default-timer-color', 'contrast-timer-color');
 		playPauseIcon.alt = 'Play';
-		stopIcon.src = 'image/stop.svg';
+		stopIcon.src = '../image/stop.svg';
 		stopIcon.alt = 'Stop';
 		cycleCount = 0;
 	}

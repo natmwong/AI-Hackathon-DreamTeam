@@ -119,15 +119,16 @@ body {
   box-shadow: inset 0 0 0 2px #000000;
 }
 
-/* Completed task */
-.task.completed span {
-  color: #9aa0a6;
+
+/* Completed task (strikethrough and faded) */
+.task.completed .task-title {
   text-decoration: line-through;
+  color: #b7bcc5;
 }
 
 /* Muted (faded tasks like in your UI) */
-.task.muted span {
-  color: #b7bcc5;
+.task.muted {
+  opacity: 0.5;
 }
 
 /* Text */

@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "image_path": "medals\\alice_20260325_051910.png",
+    "caption": "Daily achievement medal"
+  },
+  {
+    "image_path": "medals\\alice_20260325_054655.png",
+    "caption": "Daily achievement medal"
+  },
+  {
+    "image_path": "medals\\alice_20260325_054804.png",
+    "caption": "Daily achievement medal"
+  }
+]
