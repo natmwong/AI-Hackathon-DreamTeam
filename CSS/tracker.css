@@ -1,0 +1,64 @@
+
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#tracker {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    position: relative;
+    animation: FadeIn 1.2s ease-out 0.2s both;
+}
+
+.animation {
+    position: absolute;
+    width: 500px; 
+    z-index: 700;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
+
+.freak-walk {
+    top: 3%;
+}
+
+.freak-run {
+    top: 2.5%;
+}
+
+.freak-crawl {
+    top: 6%;
+}
+
+.freak-relax {
+    top: -1%;
+}
+
+.progress-bar {
+    position: relative;
+    width: 359px;
+    height: 25px;
+    box-shadow: inset 2px 3px 6px #CDCFD4;
+    border-radius: 15px;
+    align-self: center;
+    margin-bottom: 10px;
+    margin-top: auto;
+    z-index: 500;
+}
+
+.progression-bar {
+    width: 250px;
+    height: 25px;
+    border-radius: 15px;
+    position: absolute;
+    z-index: 600;
+}
+

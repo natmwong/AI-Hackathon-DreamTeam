@@ -1,0 +1,120 @@
+.timer-loop-count {
+    position: absolute;
+    top: 12px;
+    left: 22px;
+    font-size: 16px;
+    font-weight: 200;
+    color: #000000;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.timer-btn img {
+    filter: brightness(0) saturate(100%) opacity(0.5);
+}
+
+#main-display {
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.main-display-box {
+    position: relative;
+    border-radius: 50px;
+    padding: 15px;
+    box-shadow: 
+        0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    box-sizing: border-box;
+}
+
+#mode {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: none;
+    width: 296px;
+    height: 208px;
+    align-self: flex-end;
+}
+
+.mode-label {
+    font-size: 16px;
+    font-weight: 300;
+    color: #5a5a5a;
+    margin-bottom: 140x;
+    margin-left: 15px;
+}
+
+.current-mode {
+    font-size: 45px;
+    font-weight: 650;
+    color: #ffffff;
+    margin-bottom: 14px;
+    margin-left: 15px;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.35);
+
+}
+
+#timer {
+    margin-left: 25px;
+    width: 353px;
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    align-self: flex-end;
+}
+
+.timer-display {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 22px;
+}
+
+.timer-text {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: 200;
+    color: #000;
+    letter-spacing: 0.01em;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16);
+    z-index: 10;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 80px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-btn {
+    width: 86px;
+    height: 40px;
+    box-shadow: 
+        0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    background: linear-gradient(-5deg, #ffffff 0%, #ebebeb75 100%);
+    border: 1px solid #ffffff;
+    border-radius: 20px;
+
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

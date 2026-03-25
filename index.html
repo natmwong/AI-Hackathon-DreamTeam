@@ -1,43 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shift Assistant</title>
-    <link rel="stylesheet" href="CSS/main.css">
-</head>
-<body>
-    <div class="sidebar">sidebar</div>
-
-    <div class="dashboard">
-        <div id="column1">
-            <div class="box top" id="clock">
-                <h3>Clock</h3>
-                <button id="clockInBtn">Clock In</button>
-                <button id="clockOutBtn">Clock Out</button>
-            </div>
-
-            <div class="box bottom" id="task">
-                <h3>Tasks / Input</h3>
-                <input id="messageInput" type="text" placeholder="Type a goal, event, or reflection">
-                <button id="sendBtn">Send</button>
-                <div id="taskList"></div>
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="CSS/main.css">
+        <link rel="stylesheet" href="CSS/events.css">
+        <link rel="stylesheet" href="CSS/sidebar.css">
+        <link rel="stylesheet" href="CSS/tracker.css">
+        <link rel="stylesheet" href="CSS/task.css">
+        <link rel="stylesheet" href="CSS/task-modal.css">
+        <link rel="stylesheet" href="CSS/main-display.css">
+        <link rel="stylesheet" href="CSS/breathe-modal.css">
+        <link rel="stylesheet" href="CSS/ask-flow.css">
+        <link rel="stylesheet" href="CSS/flowai-modal.css">
+        <link rel="stylesheet" href="CSS/flowai-msg-actions.css">
+        <script src="scripts/timer.js"></script>
+        <script src="scripts/event.js"></script>
+        <script src="scripts/task.js"></script>
+        <script src="scripts/breathe.js"></script>
+        <script src="scripts/freakAnimation.js"></script>
+        <script src="scripts/flowai-modal.js"></script>
+        <script src="scripts/app.js"></script>
+    </head>
+    <body ondragstart="return false;" ondrop="return false;">
+    <header class="header">
+        <div class="header-left">
+            <div class="header-title">Flow Dash</div>
+            <div class="header-subtitle">Hello, <span id="name">Brian</span></div>
         </div>
+    </header>
 
-        <div id="column2">
-            <div class="box top" id="calendar">
-                <h3>Events</h3>
-                <div id="eventList"></div>
+    <div class="main">
+        <aside class="sidebar">
+            <div class="nav-app">
+                <img src="image/home.svg" alt="Home">
+            </div>
+            <div class="nav-app">
+                <img src="image/calendar.svg" alt="Calendar">
+            </div>
+            <div class="nav-app">
+                <img src="image/target.svg" alt="Breathe">
+            </div>
+            <div class="setting-app">
+                <img src="image/setting.svg" alt="Setting">
+            </div>
+        </aside>
+
+        <div class="divider"></div>
+
+        <main class="dashboard">
+            <div id="column1">
+                <div class="top" id="main-display">
+                    <div class="main-display-box default-mode-color" id="mode">
+                        <div class="mode-label">Mode:</div>
+                        <div class="current-mode">Break</div>
+                    </div>
+                    <div class="main-display-box" id="timer">
+                        <div class="timer-loop-count" id="timer-loop-count">#1</div>
+                        <div class="timer-display">
+                            <canvas id="timer-canvas" width="220" height="220" style="position:absolute;left:0;top:0;z-index:2;"></canvas>
+                            <div class="timer-text" id="timer-text">0:00</div>
+                        </div>
+                            <div class="timer-controls">
+                                <button class="timer-btn" id="timer-playpause">
+                                    <img id="timer-playpause-icon" src="image/play.svg" alt="Play">
+                                </button>
+                                <button class="timer-btn" id="timer-restart">
+                                    <img id="timer-restart-icon" src="image/stop.svg" alt="Stop">
+                                </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="box bottom" id="task">
+                    <div class="task-header">
+                        <h3>Tasks</h3>
+                        <button class="add-btn">+</button>
+                    </div>
+
+                    <ul class="task-list">
+                        <!-- Tasks will be dynamically added here -->
+                    </ul>
+                </div>
             </div>
 
-            <div class="box bottom" id="remind">
-                <h3>Assistant</h3>
-                <div id="responseBox">Backend responses will show here.</div>
+            <div id="column2">
+                <div class="box top" id="tracker">
+                    
+                    <img class="animation freak-hide" src="image/freak_walk.gif" style="display: none;">
+                    <img class="animation freak-run" src="image/freak_run.gif" style="display: block;" >
+                    <img class="animation freak-crawl" src="image/freak_crawl.gif" style="display: none;" >
+                    <img class="animation freak-relax" src="image/freak_relax.png" style="display: none;" >
+                    <div class="progress-bar">
+                        <div class="progression-bar default-progress-color"></div>
+                    </div>
+                </div>
+                <div class="box bottom" id="events">
+                    <div class="box-label">Events</div>
+
+                    <div class="events-content">
+                        <div class="events-add-btn">
+                            <img src="image/add.svg" alt="Add Event">
+                        </div>
+
+                        <div class="events-cards-selection">
+                            <div class="event-card event-card-urgent">
+                                <div class="event-card-type">Upcoming • AI</div>
+                                <div class="event-card-title">Meeting with Mike for Project Updates</div>
+                                <div class="event-card-time urgent-text">
+                                    Right Now! 
+                                    <span class="event-bell"> 
+                                        <img src="image/notifications-urgent.svg" alt="Notification">
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="event-card">
+                                <div class="event-card-type">Upcoming</div>
+                                <div class="event-card-title">Call with Design Team</div>
+                                <div class="event-card-time">
+                                    3:00 pm 
+                                    <span class="event-bell"> 
+                                        <img src="image/notifications.svg" alt="Notification">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ask-flow-row">
+                    <div class="ask-flow-container">
+                        <input type="text" class="ask-flow-input" placeholder="Ask flow..." />
+                    </div>
+                    <button class="ask-flow-btn" id="askFlowBtn">
+                        <img src="image/flow.svg" alt="Ask Flow" />
+                    </button>
+                </div>
+            </div>
+            </div>
+        </main>
+
+    <!-- Flow AI Modal -->
+    <div class="flowai-modal" id="flowaiModal" style="display:none;">
+        <div class="flowai-modal-content">
+            <div class="flowai-modal-header">
+                <span class="flowai-title">Flow Ai</span>
+                <button class="flowai-close" id="flowaiCloseBtn">&times;</button>
+            </div>
+            <div class="flowai-modal-body" id="flowaiMessages">
+                <!-- Example messages, remove or replace with JS later -->
+                <div class="flowai-msg flowai-msg-center">What do you want to accomplish today?</div>
+                <div class="flowai-msg flowai-msg-user">
+                    Hey Flow, today I need to catch up on emails from clients and my team. I also need to update the sales spreadsheet with the latest numbers and make sure everything is correct. There’s some messy data I should clean up too. I have to prepare slides for our team meeting with updates and metrics. Also I should organize the shared drive and archive old files. And I need to follow up with some clients about pending requests.
+                </div>
+                <div class="flowai-msg flowai-msg-ai flowai-msg-list">
+                    <div>I’ve organized your day into actionable tasks so you can stay focused and avoid overload:</div>
+                    <ul>
+                        <li>Check and respond to priority emails from clients and internal team members</li>
+                        <li>Update the sales spreadsheet with the latest numbers and double check for accuracy</li>
+                        <li>Review and clean up data entries to remove duplicates and correct errors</li>
+                        <li>Prepare slides for the team meeting including key metrics, updates, and action items</li>
+                        <li>Organize files in the shared drive by category and archive outdated documents</li>
+                        <li>Follow up with clients on pending requests and confirm next steps or deadlines</li>
+                    </ul>
+                    <div class="flowai-msg-actions">
+                        <button class="flowai-edit-btn" title="Edit">
+                            <img src="image/border_color.svg" alt="Edit" />
+                        </button>
+                        <button class="flowai-arrow-btn" title="Details">
+                            <img src="image/arrow_forward.svg" alt="Details" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Uncomment for message input to Flow -->
+            <!-- <div class="flowai-modal-footer">
+                <input type="text" class="flowai-input" placeholder="Type your message..." />
+                <button class="flowai-send-btn">
+                    <img src="image/flow.svg" alt="Send" />
+                </button>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-content">
+            <div class="confirmation-header">
+                <h3>Confirm Delete</h3>
+            </div>
+            <div class="confirmation-body">
+                <p id="confirmationMessage">Are you sure you want to delete this event?</p>
+            </div>
+            <div class="confirmation-actions">
+                <button class="confirmation-btn confirmation-cancel" id="cancelBtn">Cancel</button>
+                <button class="confirmation-btn confirmation-delete" id="confirmBtn">Delete</button>
             </div>
         </div>
     </div>
 
-    <script src="scripts/app.js"></script>
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button class="settings-close" id="settingsCloseBtn">
+                    <img src="image/close.svg" alt="Close">
+                </button>
+            </div>
+            
+            <div class="settings-body">
+                <div class="settings-section">
+                    <label class="settings-label">Username</label>
+                    <input type="text" class="settings-input" placeholder="Enter your name">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Email</label>
+                    <input type="email" class="settings-input" placeholder="your.email@example.com">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Work Hours</label>
+                    <input type="text" class="settings-input" placeholder="e.g., 9:00 AM - 5:00 PM">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Theme</label>
+                    <select class="settings-input">
+                        <option selected>Light</option>
+                        <option>Dark</option>
+                        <option>Auto</option>
+                    </select>
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-checkbox">
+                        <input type="checkbox" checked>
+                        <span>Enable Notifications</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-actions">
+                <button class="settings-btn settings-cancel" id="settingsCancelBtn">Close</button>
+                <button class="settings-btn settings-save">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-content">
+            <div class="confirmation-header">
+                <h3>Confirm Delete</h3>
+            </div>
+            <div class="confirmation-body">
+                <p id="confirmationMessage">Are you sure you want to delete this event?</p>
+            </div>
+            <div class="confirmation-actions">
+                <button class="confirmation-btn confirmation-cancel" id="cancelBtn">Cancel</button>
+                <button class="confirmation-btn confirmation-delete" id="confirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <button class="settings-close" id="settingsCloseBtn">
+                    <img src="image/close.svg" alt="Close">
+                </button>
+            </div>
+            
+            <div class="settings-body">
+                <div class="settings-section">
+                    <label class="settings-label">Username</label>
+                    <input type="text" class="settings-input" placeholder="Enter your name">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Email</label>
+                    <input type="email" class="settings-input" placeholder="your.email@example.com">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Work Hours</label>
+                    <input type="text" class="settings-input" placeholder="e.g., 9:00 AM - 5:00 PM">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">Display Mode</label>
+                    <div class="settings-toggle">
+                        <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
+                        <label for="contrastModeToggle" class="toggle-label">
+                            <span class="toggle-text-default">Default</span>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-text-contrast">Contrast</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-checkbox">
+                        <input type="checkbox" checked>
+                        <span>Enable Notifications</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="settings-actions">
+                <button class="settings-btn settings-cancel" id="settingsCancelBtn">Close</button>
+                <button class="settings-btn settings-save">Save Changes</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
