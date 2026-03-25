@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		confirmBtn.addEventListener('click', () => {
 			const title = taskTitleInput.value.trim();
 			if (!title) return taskTitleInput.focus();
+			// If tasks is empty, try to load from localStorage or backend if available
+			// Otherwise, just append
+			if (!Array.isArray(tasks)) tasks = [];
 			tasks.push({ title, completed: false });
 			renderTasks();
 			closeModal();

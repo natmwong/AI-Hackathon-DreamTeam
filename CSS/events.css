@@ -180,8 +180,15 @@
     align-items: center;
     gap: 8px;
     white-space: nowrap;
-    width: 80px;
+    width: calc(100% - 22px); /* leave space for checkmark button */
+    min-width: 0;
     padding-left: 10px;
+    padding-right: 26px; /* extra space for checkmark button */
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    scrollbar-width: thin;
 }
 
 .urgent-text {

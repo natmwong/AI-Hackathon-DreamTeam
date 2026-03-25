@@ -1,5 +1,61 @@
 // --- Pomodoro Timer Logic ---
 document.addEventListener('DOMContentLoaded', function() {
+	// --- Pomodoro Backend Integration ---
+	async function syncPomodoroFromBackend() {
+		try {
+			const response = await fetch('http://localhost:5000/api/pomodoro/login', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({})
+			});
+			const data = await response.json();
+			// Set timer and mode from backend
+			if (data && data.success) {
+				isWorkMode = data.work_mode === 'work';
+				timeLeft = data.current_pomodoro_time;
+				updateDisplay();
+				updateFreakAnimation(data);
+				updateShiftProgressBar(data);
+			}
+		} catch (e) {
+			console.error('Failed to sync pomodoro from backend:', e);
+		}
+	}
+	// --- Shift Progress Bar ---
+	function updateShiftProgressBar(data) {
+		const bar = document.querySelector('.progression-bar');
+		if (!bar || !data || !data.active || !data.shift_start || !data.shift_end || typeof data.elapsed_shift_minutes !== 'number') return;
+		// Calculate total shift minutes
+		const [startH, startM] = data.shift_start.split(':').map(Number);
+		const [endH, endM] = data.shift_end.split(':').map(Number);
+		const totalShiftMinutes = (endH * 60 + endM) - (startH * 60 + startM);
+		const progress = Math.max(0, Math.min(1, data.elapsed_shift_minutes / totalShiftMinutes));
+		bar.style.width = (progress * 100) + '%';
+	}
+
+	// --- Freak Animation Integration ---
+	function updateFreakAnimation(data) {
+		const freakWalk = document.querySelector('.freak-hide');
+		const freakRun = document.querySelector('.freak-run');
+		const freakCrawl = document.querySelector('.freak-crawl');
+		const freakRelax = document.querySelector('.freak-relax');
+		// Hide all
+		if (freakWalk) freakWalk.style.display = 'none';
+		if (freakRun) freakRun.style.display = 'none';
+		if (freakCrawl) freakCrawl.style.display = 'none';
+		if (freakRelax) freakRelax.style.display = 'none';
+		if (!data || !data.active || data.work_mode === 'off') {
+			if (freakRelax) freakRelax.style.display = 'block';
+		} else if (data.work_mode === 'break') {
+			if (freakRelax) freakRelax.style.display = 'block';
+		} else if (data.work_mode === 'work') {
+			if (data.current_pomodoro_time <= 60 * 60) {
+				if (freakWalk) freakWalk.style.display = 'block';
+			} else {
+				if (freakRun) freakRun.style.display = 'block';
+			}
+		}
+	}
 	// Timer settings (in seconds)
 	const WORK_DURATION = 25 * 60; // 25 minutes
 	const BREAK_DURATION = 5 * 60; // 5 minutes
@@ -187,9 +243,35 @@ document.addEventListener('DOMContentLoaded', function() {
 		updateDisplay();
 	});
 
-	// Initial display
-	updateDisplay();
+	// Initial sync from backend
+	syncPomodoroFromBackend();
 
 	// Expose updateDisplay globally so settings can trigger redraw
 	window.redrawTimer = updateDisplay;
+
+	// On timer end, re-sync from backend
+	// Patch startTimer to re-sync after each segment
+	const originalStartTimer = startTimer;
+	startTimer = function() {
+		originalStartTimer();
+		// When timer ends, re-sync
+		if (timer) {
+			clearInterval(timer);
+		}
+		timer = setInterval(() => {
+			if (timeLeft > 0) {
+				timeLeft--;
+				updateDisplay();
+			} else {
+				clearInterval(timer);
+				isRunning = false;
+				playPauseIcon.src = '../image/play.svg';
+				playPauseIcon.alt = 'Play';
+				stopIcon.src = '../image/stop.svg';
+				stopIcon.alt = 'Stop';
+				// Re-sync from backend
+				syncPomodoroFromBackend();
+			}
+		}, 1000);
+	};
 });

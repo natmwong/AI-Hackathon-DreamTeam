@@ -291,16 +291,52 @@ document.addEventListener('DOMContentLoaded', function () {
         // Find the index of the first incomplete (not completed) task
         const firstIncompleteIdx = tasks.findIndex(t => !t.completed);
         tasks.forEach((task, idx) => {
-            const li = createTaskElement(task, idx, 
-                newTitle => { if (onEdit) onEdit(idx, newTitle); },
-                checked => { if (onToggle) onToggle(idx, checked); }
-            );
-            // Add .muted to all incomplete tasks except the first incomplete one
-            if (!task.completed && idx !== firstIncompleteIdx) {
+            const li = document.createElement('li');
+            li.className = 'task';
+            if (task.completed) {
+                li.classList.add('completed');
+            } else if (idx !== firstIncompleteIdx) {
                 li.classList.add('muted');
             }
+            li.innerHTML = `
+                <input type="checkbox" ${task.completed ? 'checked' : ''} />
+                <span class="task-title" tabindex="0">${escapeHTML(task.title)}</span>
+            `;
+            // Checkbox logic
+            const checkbox = li.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', () => {
+                task.completed = checkbox.checked;
+                renderTasks(tasks, container, onEdit, onToggle);
+                if (onToggle) onToggle(idx, checkbox.checked);
+            });
+            // Enable editing on click
+            const span = li.querySelector('.task-title');
+            span.addEventListener('click', () => makeEditable(span, task, idx, onEdit, tasks, container, onToggle));
+            span.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') e.preventDefault();
+            });
             container.appendChild(li);
         });
+    }
+
+    // Make task title editable
+    function makeEditable(span, task, idx, onEdit, tasks, container, onToggle) {
+        if (span.isContentEditable) return;
+        span.contentEditable = 'true';
+        span.focus();
+        document.execCommand('selectAll', false, null);
+        function finishEdit(e) {
+            if (e.type === 'blur' || (e.type === 'keydown' && e.key === 'Enter')) {
+                span.contentEditable = 'false';
+                span.removeEventListener('blur', finishEdit);
+                span.removeEventListener('keydown', finishEdit);
+                task.title = span.textContent.trim();
+                renderTasks(tasks, container, onEdit, onToggle);
+                if (onEdit) onEdit(idx, task.title);
+            }
+        }
+        span.addEventListener('blur', finishEdit);
+        span.addEventListener('keydown', finishEdit);
     }
 
     // Render events into .events-cards-selection
