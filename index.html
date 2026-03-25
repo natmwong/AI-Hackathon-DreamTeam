@@ -227,12 +227,15 @@
                 </div>
                 
                 <div class="settings-section">
-                    <label class="settings-label">Theme</label>
-                    <select class="settings-input">
-                        <option selected>Light</option>
-                        <option>Dark</option>
-                        <option>Auto</option>
-                    </select>
+                    <label class="settings-label">Display Mode</label>
+                    <div class="settings-toggle">
+                        <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
+                        <label for="contrastModeToggle" class="toggle-label">
+                            <span class="toggle-text-default">Default</span>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-text-contrast">Contrast</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="settings-section">
@@ -266,57 +269,6 @@
         </div>
     </div>
 
-    <!-- Settings Modal -->
-    <div class="settings-modal" id="settingsModal">
-        <div class="settings-content">
-            <div class="settings-header">
-                <h3>Settings</h3>
-                <button class="settings-close" id="settingsCloseBtn">
-                    <img src="image/close.svg" alt="Close">
-                </button>
-            </div>
-            
-            <div class="settings-body">
-                <div class="settings-section">
-                    <label class="settings-label">Username</label>
-                    <input type="text" class="settings-input" placeholder="Enter your name">
-                </div>
-                
-                <div class="settings-section">
-                    <label class="settings-label">Email</label>
-                    <input type="email" class="settings-input" placeholder="your.email@example.com">
-                </div>
-                
-                <div class="settings-section">
-                    <label class="settings-label">Work Hours</label>
-                    <input type="text" class="settings-input" placeholder="e.g., 9:00 AM - 5:00 PM">
-                </div>
-                
-                <div class="settings-section">
-                    <label class="settings-label">Display Mode</label>
-                    <div class="settings-toggle">
-                        <input type="checkbox" id="contrastModeToggle" class="toggle-checkbox">
-                        <label for="contrastModeToggle" class="toggle-label">
-                            <span class="toggle-text-default">Default</span>
-                            <span class="toggle-switch"></span>
-                            <span class="toggle-text-contrast">Contrast</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="settings-section">
-                    <label class="settings-checkbox">
-                        <input type="checkbox" checked>
-                        <span>Enable Notifications</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="settings-actions">
-                <button class="settings-btn settings-cancel" id="settingsCancelBtn">Close</button>
-                <button class="settings-btn settings-save">Save Changes</button>
-            </div>
-        </div>
-    </div>
+    
 </body>
 </html>
