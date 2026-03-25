@@ -16,6 +16,8 @@
     gap: 18px;
     justify-content: flex-start;
     width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #dcdfe5 #f4f6fa;
 }
 
 .events-cards-selection {
