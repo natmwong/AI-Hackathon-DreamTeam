@@ -29,6 +29,26 @@ def clock_in():
 
     ensure_user(user_id)
 
+
+    # Only allow clock-in if not already clocked in (must clock out first)
+    from os.path import exists
+    import json
+    import os
+    session_path = os.path.join("data", "users", user_id, "session.json")
+    if exists(session_path):
+        with open(session_path, "r") as f:
+            try:
+                session_data = json.load(f)
+                state = session_data.get("state")
+                # Only allow clock-in if state is 'completed' or 'awaiting_goals' (not currently clocked in)
+                if state not in [None, "completed", "awaiting_goals"]:
+                    return jsonify({
+                        "already_clocked_in": True,
+                        "message": "You must clock out before clocking in again."
+                    })
+            except Exception:
+                pass
+
     session = {
         "state": "awaiting_goals",
         "clock_in_time": datetime.now().isoformat(),

@@ -5,7 +5,49 @@ document.addEventListener('DOMContentLoaded', async function() {
     const freakCrawl = document.querySelector('.freak-crawl');
     const freakRelax = document.querySelector('.freak-relax');
 
-    async function updateFreakAnimation() {
+    // DEMO: Global variable to control animation
+    window.freakAnimationMode = null; // Set to 'walk', 'run', 'crawl', 'relax' to override
+
+    // Helper to set animation by name
+    window.setFreakAnimation = function(mode) {
+        window.freakAnimationMode = mode;
+        updateFreakAnimation();
+    };
+
+    // Accepts optional params for progress and mode
+    window.updateFreakAnimation = async function(progressPercent = null, workMode = null) {
+        // Hide all animations first
+        if (freakWalk) freakWalk.style.display = 'none';
+        if (freakRun) freakRun.style.display = 'none';
+        if (freakCrawl) freakCrawl.style.display = 'none';
+        if (freakRelax) freakRelax.style.display = 'none';
+
+        // DEMO: If freakAnimationMode is set, use it
+        if (window.freakAnimationMode) {
+            switch (window.freakAnimationMode) {
+                case 'walk': if (freakWalk) freakWalk.style.display = 'block'; break;
+                case 'run': if (freakRun) freakRun.style.display = 'block'; break;
+                case 'crawl': if (freakCrawl) freakCrawl.style.display = 'block'; break;
+                case 'relax': if (freakRelax) freakRelax.style.display = 'block'; break;
+            }
+            return;
+        }
+
+        // If progressPercent and workMode are provided, use them for animation logic
+        if (progressPercent !== null && workMode !== null) {
+            if (workMode === 'break') {
+                if (freakRelax) freakRelax.style.display = 'block';
+                return;
+            }
+            if (progressPercent >= 90) {
+                if (freakWalk) freakWalk.style.display = 'block';
+            } else {
+                if (freakRun) freakRun.style.display = 'block';
+            }
+            return;
+        }
+
+        // Otherwise, use backend logic
         try {
             const response = await fetch('http://localhost:5000/api/pomodoro/login', {
                 method: 'POST',
@@ -14,12 +56,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
 
             const data = await response.json();
-
-            // Hide all animations first
-            if (freakWalk) freakWalk.style.display = 'none';
-            if (freakRun) freakRun.style.display = 'none';
-            if (freakCrawl) freakCrawl.style.display = 'none';
-            if (freakRelax) freakRelax.style.display = 'none';
 
             // Determine which animation to show
             if (!data.active || data.work_mode === 'off') {
@@ -49,8 +85,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Update animation on load
-    await updateFreakAnimation();
+    await window.updateFreakAnimation();
 
     // Optional: Update animation periodically (every minute)
-    setInterval(updateFreakAnimation, 60000);
+    setInterval(window.updateFreakAnimation, 60000);
 });

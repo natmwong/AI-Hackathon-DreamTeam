@@ -248,6 +248,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Expose updateDisplay globally so settings can trigger redraw
 	window.redrawTimer = updateDisplay;
+	// Expose startTimer globally so it can be triggered from app.js
+	window.startTimer = startTimer;
 
 	// On timer end, re-sync from backend
 	// Patch startTimer to re-sync after each segment

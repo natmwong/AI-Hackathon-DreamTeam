@@ -55,9 +55,10 @@
 }
 
 .progression-bar {
-    width: 250px;
+    width: 0%;
     height: 25px;
     border-radius: 15px;
+    transition: width 0.2s linear;
     position: absolute;
     z-index: 600;
 }

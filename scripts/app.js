@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     // --- Reusable UI Components ---
     // Create a task <li> element with checkbox, editable span, and listeners
@@ -37,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 span.contentEditable = 'false';
                 span.removeEventListener('blur', finishEdit);
                 span.removeEventListener('keydown', finishEdit);
-                const newTitle = span.textContent.trim();
-                if (onEdit) onEdit(newTitle);
+                task.title = span.textContent.trim();
+                if (onEdit) onEdit(idx, task.title);
             }
         }
         span.addEventListener('blur', finishEdit);
@@ -130,23 +129,55 @@ document.addEventListener('DOMContentLoaded', function () {
         const messageEl = document.getElementById('confirmationMessage');
         const confirmBtn = document.getElementById('confirmBtn');
         const cancelBtn = document.getElementById('cancelBtn');
-        messageEl.textContent = message;
-        modal.classList.add('active');
-        const handleConfirm = () => { cleanup(); onConfirm(); };
-        const handleCancel = () => { cleanup(); };
-        const cleanup = () => {
-            modal.classList.remove('active');
-            confirmBtn.removeEventListener('click', handleConfirm);
-            cancelBtn.removeEventListener('click', handleCancel);
-            document.removeEventListener('keydown', handleEscape);
-        };
-        const handleEscape = (e) => { if (e.key === 'Escape') { handleCancel(); } };
-        confirmBtn.addEventListener('click', handleConfirm);
-        cancelBtn.addEventListener('click', handleCancel);
-        document.addEventListener('keydown', handleEscape);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) { handleCancel(); }
-        }, { once: true });
+        const header = modal.querySelector('.confirmation-header');
+        // Special case: if message is for already clocked in or must clock out, show only OK button and hide header, and bold the message
+        if (
+            message === "You have already clocked in for the day." ||
+            message === "You must clock out before clocking in again."
+        ) {
+            messageEl.innerHTML = `<b>${message}</b>`;
+            if (header) header.style.display = 'none';
+            confirmBtn.textContent = "OK";
+            confirmBtn.style.display = "inline-block";
+            cancelBtn.style.display = "none";
+            const cleanup = () => {
+                modal.classList.remove('active');
+                confirmBtn.removeEventListener('click', handleOk);
+                document.removeEventListener('keydown', handleEscape);
+                if (header) header.style.display = '';
+            };
+            const handleOk = () => { cleanup(); };
+            const handleEscape = (e) => { if (e.key === 'Escape') { cleanup(); } };
+            confirmBtn.addEventListener('click', handleOk);
+            document.addEventListener('keydown', handleEscape);
+            modal.classList.add('active');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) { cleanup(); }
+            }, { once: true });
+        } else {
+            messageEl.textContent = message;
+            // Default: two buttons (confirm/cancel) and show header
+            if (header) header.style.display = '';
+            confirmBtn.textContent = "Delete";
+            confirmBtn.style.display = "inline-block";
+            cancelBtn.style.display = "inline-block";
+            modal.classList.add('active');
+            const handleConfirm = () => { cleanup(); onConfirm(); };
+            const handleCancel = () => { cleanup(); };
+            const cleanup = () => {
+                modal.classList.remove('active');
+                confirmBtn.removeEventListener('click', handleConfirm);
+                cancelBtn.removeEventListener('click', handleCancel);
+                document.removeEventListener('keydown', handleEscape);
+            };
+            const handleEscape = (e) => { if (e.key === 'Escape') { handleCancel(); } };
+            confirmBtn.addEventListener('click', handleConfirm);
+            cancelBtn.addEventListener('click', handleCancel);
+            document.addEventListener('keydown', handleEscape);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) { handleCancel(); }
+            }, { once: true });
+        }
     }
     const BASE_URL = "http://127.0.0.1:5000";
     const userId = "alice";
@@ -387,9 +418,25 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify({ user_id: userId })
         });
         const data = await res.json();
+        if (data.already_clocked_in) {
+            // Show the backend message, bolded, with only OK button and no header
+            showConfirmation(data.message || "You have already clocked in for the day.", () => {});
+            return;
+        }
+        barIsComplete = false; // Reset bar complete state on clock-in
+        forceBreakAnimation = false; // Allow animation to change again
         showFlowaiModal(data.prompt || "What would you like to accomplish today?");
         await loadTasks();
         await loadEvents();
+        // Start timer and animation on clock-in
+        startProgressBar(totalDuration);
+        if (window.updateFreakAnimation) {
+            window.updateFreakAnimation(0, getWorkMode());
+        }
+        // Start the Pomodoro timer automatically
+        if (window.startTimer) {
+            window.startTimer();
+        }
     }
 
     // Check Out logic
@@ -405,6 +452,11 @@ document.addEventListener('DOMContentLoaded', function () {
             data = await res.json();
         } catch (e) {
             data = {};
+        }
+        stopProgressBar = true; // Stop the progress bar
+        forceBreakAnimation = true; // Lock animation to break
+        if (window.updateFreakAnimation) {
+            window.updateFreakAnimation(100, 'break'); // Set animation to relax
         }
         showFlowaiModal("What did you accomplish today? Tell me 3 achievements from today separated by semicolons.");
     }
@@ -463,6 +515,59 @@ document.addEventListener('DOMContentLoaded', function () {
         await loadTasks();
         await loadEvents();
     })();
+
+    // Set the total duration in seconds (e.g., 10 minutes = 600 seconds)
+    const totalDuration = 5 * 60; // 5 minutes
+
+    // Get the progression bar element
+    const progressionBar = document.querySelector('.progression-bar');
+
+
+    // Helper to get work mode
+    function getWorkMode() {
+        // Try to get from timer label, fallback to 'work'
+        const modeLabel = document.querySelector('.current-mode');
+        if (modeLabel && modeLabel.textContent.toLowerCase().includes('break')) return 'break';
+        return 'work';
+    }
+
+    let barIsComplete = false;
+    let stopProgressBar = false;
+    let forceBreakAnimation = false;
+    function startProgressBar(durationSeconds) {
+        let startTime = Date.now();
+        barIsComplete = false;
+        stopProgressBar = false;
+        function update() {
+            if (stopProgressBar) return;
+            const elapsed = (Date.now() - startTime) / 1000;
+            const percent = Math.min((elapsed / durationSeconds) * 100, 100);
+            progressionBar.style.width = percent + '%';
+            if (window.updateFreakAnimation) {
+                if (forceBreakAnimation) {
+                    window.updateFreakAnimation(100, 'break');
+                } else if (percent >= 100) {
+                    barIsComplete = true;
+                    window.updateFreakAnimation(100, 'break'); // Stay in break mode
+                } else {
+                    window.updateFreakAnimation(percent, getWorkMode());
+                }
+            }
+            if (percent < 100) {
+                requestAnimationFrame(update);
+            }
+        }
+        update();
+    }
+
+    // Keep freak in break mode after bar is full or after clock out
+    setInterval(() => {
+        if ((barIsComplete || forceBreakAnimation) && window.updateFreakAnimation) {
+            window.updateFreakAnimation(100, 'break');
+        }
+    }, 1000);
+
+    startProgressBar(totalDuration);
 });
 
 // function renderTasks(tasks) {

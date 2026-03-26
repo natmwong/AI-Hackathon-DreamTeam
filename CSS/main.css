@@ -12,6 +12,9 @@
     justify-content: flex-start;
     align-items: center;
     margin-left: 16px;
+    margin-bottom: -66px;
+    position: relative;
+    z-index: 2;
 }
 
 .check-btn {
@@ -27,7 +30,6 @@
     cursor: pointer;
     transition: box-shadow 0.2s, transform 0.2s;
     outline: none;
-    margin-bottom: 0;
     animation: FadeIn 1.2s ease-out;
 }
 
