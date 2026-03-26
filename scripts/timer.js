@@ -250,30 +250,4 @@ document.addEventListener('DOMContentLoaded', function() {
 	window.redrawTimer = updateDisplay;
 	// Expose startTimer globally so it can be triggered from app.js
 	window.startTimer = startTimer;
-
-	// On timer end, re-sync from backend
-	// Patch startTimer to re-sync after each segment
-	const originalStartTimer = startTimer;
-	startTimer = function() {
-		originalStartTimer();
-		// When timer ends, re-sync
-		if (timer) {
-			clearInterval(timer);
-		}
-		timer = setInterval(() => {
-			if (timeLeft > 0) {
-				timeLeft--;
-				updateDisplay();
-			} else {
-				clearInterval(timer);
-				isRunning = false;
-				playPauseIcon.src = '../image/play.svg';
-				playPauseIcon.alt = 'Play';
-				stopIcon.src = '../image/stop.svg';
-				stopIcon.alt = 'Stop';
-				// Re-sync from backend
-				syncPomodoroFromBackend();
-			}
-		}, 1000);
-	};
 });
