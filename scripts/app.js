@@ -407,7 +407,28 @@ document.addEventListener('DOMContentLoaded', function () {
     async function loadEvents() {
         const res = await fetch(`${BASE_URL}/events/${userId}`);
         const data = await res.json();
-        renderEvents(data);
+        renderEvents(data, eventsCardsSelection,
+            null, // onEdit callback
+            async (idx) => {
+                // Delete from backend
+                try {
+                    const deleteRes = await fetch(`${BASE_URL}/events/${userId}/${idx}`, {
+                        method: "DELETE"
+                    });
+                    const deleteData = await deleteRes.json();
+                    if (deleteData.success) {
+                        // Reload events to refresh the display
+                        await loadEvents();
+                    } else {
+                        console.error('Failed to delete event:', deleteData.message);
+                        alert('Failed to delete event');
+                    }
+                } catch (error) {
+                    console.error('Error deleting event:', error);
+                    alert('Error deleting event');
+                }
+            }
+        );
     }
 
     // Check In logic

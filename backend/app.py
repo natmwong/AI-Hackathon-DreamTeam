@@ -277,6 +277,35 @@ def get_events(user_id):
     return jsonify(read_json(user_id, "events.json"))
 
 
+@app.route("/events/<user_id>/<int:event_index>", methods=["DELETE"])
+def delete_event(user_id, event_index):
+    """Delete a single event by index"""
+    events = read_json(user_id, "events.json")
+    if 0 <= event_index < len(events):
+        deleted_event = events.pop(event_index)
+        write_json(user_id, "events.json", events)
+        return jsonify({
+            "success": True,
+            "message": "Event deleted successfully.",
+            "deleted_event": deleted_event
+        })
+    else:
+        return jsonify({
+            "success": False,
+            "message": "Event index out of range."
+        }), 400
+
+
+@app.route("/events/<user_id>", methods=["DELETE"])
+def delete_all_events(user_id):
+    """Delete all events for a user"""
+    write_json(user_id, "events.json", [])
+    return jsonify({
+        "success": True,
+        "message": "All events deleted successfully."
+    })
+
+
 @app.route("/album/<user_id>", methods=["GET"])
 def get_album(user_id):
     return jsonify(read_json(user_id, "medals.json"))

@@ -30,5 +30,21 @@
   {
     "title": "Follow up with clients on pending requests.",
     "completed": false
+  },
+  {
+    "title": "List today's top 3 tasks.",
+    "completed": false
+  },
+  {
+    "title": "Schedule dedicated focus blocks.",
+    "completed": false
+  },
+  {
+    "title": "Clear your workspace of distractions.",
+    "completed": false
+  },
+  {
+    "title": "Set a single daily intention.",
+    "completed": false
   }
 ]
